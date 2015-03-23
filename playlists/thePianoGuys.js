@@ -3,15 +3,15 @@ var songList = [{
     img: 'art/2.jpg',
     title: 'Moonlight'
 }, {
-    src: 'audio/thePianoGuys/loveStoryMeetsVivaLaVida.mp3',
+    src: '//media001c.mywedding.com/music_songs/10/162/10162942-0eddc439.mp3',
     img: 'art/0.jpg',
     title: 'Love Story meets Viva la Vida'
 }, {
-    src: 'audio/thePianoGuys/piratesOfTheCarribean.mp3',
+    src: '//a.tumblr.com/tumblr_m7ukawTrKx1qdg544o1.mp3',
     img: 'art/0.jpg',
     title: 'Pirates of the Carribean'
 }, {
-    src: 'audio/thePianoGuys/theCelloSong.mp3',
+    src: '//a.tumblr.com/tumblr_lvg5gnrcKF1qcxi2ko1.mp3',
     img: 'art/2.jpg',
     title: 'The Cello Song'
 }];
