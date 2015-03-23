@@ -1,0 +1,70 @@
+.music.container {
+    position: relative;
+    top: 0;
+    right: 0;
+    width: 250px;
+}
+
+.music.panel {
+    position: absolute;
+    width: 250px;
+}
+.music.panel span:active,
+.music.panel .playlist-item:active {
+    color: #1a2020;
+}
+
+/* Playlist */
+.music.panel.playlist {
+    height: 209px;
+    top: 0;
+
+    overflow: hidden;
+}
+.music.playlist .playlist-item {
+    font-size: 14px;
+    margin: 0;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.9);
+}
+.music.playlist .playlist-item:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* Controls */
+.music.panel.controls {
+    position: absolute;
+    bottom: 0;
+
+    width: 250px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+
+    background-color: rgba(255, 255, 255, 0.8);
+    border-top: 1px solid rgba(255, 255, 255, 0.9);
+}
+.music.panel span[class~='fa'] {
+    margin: 0 20px;
+    cursor: pointer;
+}
+.music.panel span[class~='fa-play'],
+.music.panel span[class~='fa-pause'] {
+    width: 26px;
+}
+
+
+.music.album-art {
+    width: 250px;
+    margin-bottom: -5px;
+}
+
+body {
+    background-color: #f5f6f0;
+    font-family: helvetica, georgia, sans-serif;
+    color: #303438;
+
+    margin: 20px;
+}
