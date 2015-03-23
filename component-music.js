@@ -39,7 +39,8 @@ var music = {
         body.appendChild(container);
     }
 }
-window.addEventListener('load', function() {
+
+function loadHandler() {
     var head = document.getElementsByTagName('head')[0];
 
     var link = document.createElement("link");
@@ -61,4 +62,10 @@ window.addEventListener('load', function() {
             play.className = play.className.replace(/pause/g, 'play');
         }
     }
-});
+}
+console.log(document.readyState);
+// Handle script injection, post load hook
+if (document.readyState === 'complete') {
+    loadHandler();
+}
+window.addEventListener('load', loadHandler);
