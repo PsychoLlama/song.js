@@ -1,4 +1,4 @@
-[{
+music.songList = [{
     src: '//a.tumblr.com/tumblr_mb113crOTh1qjp4a2o1.mp3',
     img: 'art/2.jpg',
     title: 'Moonlight'

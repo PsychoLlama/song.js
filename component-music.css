@@ -3,6 +3,9 @@
     top: 0;
     right: 0;
     width: 250px;
+
+    display: inline-block;
+    margin: 10px;
 }
 
 .music.panel {
@@ -25,8 +28,9 @@
     font-size: 14px;
     margin: 0;
     padding: 10px;
+    padding-left: 20px;
     background-color: rgba(255, 255, 255, 0.8);
-    border-bottom: 1px solid #aaa;
+    border-bottom: 1px solid #a7abac;
     border-top: 1px solid rgba(255, 255, 255, 0.8);
 }
 .music.playlist .playlist-item:first-child {
@@ -65,12 +69,25 @@
     margin-bottom: -5px;
 }
 
+.music audio {
+    display: none;
+}
+
 body {
     background-color: #f5f6f0;
     font-family: helvetica, georgia, sans-serif;
     color: #303438;
 
     margin: 20px;
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 @media (max-width: 499px) {
