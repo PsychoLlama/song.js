@@ -42,7 +42,6 @@ var music = {
         this.play = document.createElement('span');
         this.play.setAttribute('class', 'fa fa-play');
         this.panel.appendChild(this.play);
-        console.log(this.play);
 
         this.nextButton = document.createElement('span');
         this.nextButton.setAttribute('class', 'fa fa-fast-forward');
@@ -134,18 +133,20 @@ var music = {
 
     bindControls: function() {
         this.play.addEventListener('click', this.togglePlay);
+        this.nextButton.addEventListener('click', this.nextSong);
+        this.backButton.addEventListener('click', this.previousSong);
     },
 
-    togglePlay: function() {
+    togglePlay: function(e) {
         // Careful! 'this' refers to the event.target now.
-        if (this.className.match(/play/g)) {
+        if (e.target.className.match(/play/g)) {
             // User has asked to play song
             music.playSong();
 
-            this.className = this.className.replace(/play/g, 'pause');
+            e.target.className = e.target.className.replace(/play/g, 'pause');
         } else {
             music.pauseSong();
-            this.className = this.className.replace(/pause/g, 'play');
+            e.target.className = e.target.className.replace(/pause/g, 'play');
         }
     },
 
@@ -156,6 +157,7 @@ var music = {
             // FUTURE SHUFFLE FUNCTION HERE
             this.songList.currentSong = 0;
         }
+        music.play.className = music.play.className.replace(/play/g, 'pause');
         this.songList[this.songList.currentSong].play();
     },
 
@@ -174,8 +176,11 @@ var music = {
     },
 
     nextSong: function() {
+        music.pauseAllSongs();
         if (music.songList.currentSong === music.songList.length -1 && music.repeat) {
             // We're on the last song, and repeat is on.
+            music.pauseSong();
+            music.songList.currentSong = 0;
             music.playSong();
         } else if (music.songList.currentSong === music.songList.length -1 && music.repeat === false) {
             // Last song, repeat is off.
@@ -183,6 +188,28 @@ var music = {
         } else {
             music.songList.currentSong++;
             music.playSong();
+        }
+        music.updateArtwork(music.songList[music.songList.currentSong]);
+    },
+
+    previousSong: function() {
+        music.pauseAllSongs();
+        if (music.songList[music.songList.currentSong].currentTime > 5) {
+            music.songList[music.songList.currentSong].currentTime = 0;
+        } else if (music.songList.currentSong === 0) {
+            music.songList.currentSong = music.songList.length - 1;
+            music.playSong();
+        } else {
+            music.songList.currentSong--;
+            music.playSong();
+        }
+        music.updateArtwork(music.songList[music.songList.currentSong]);
+    },
+
+    pauseAllSongs: function() {
+        var allSongs = document.querySelectorAll('audio');
+        for (var i = 0; i < allSongs.length; i++) {
+            allSongs[i].pause();
         }
     },
 
