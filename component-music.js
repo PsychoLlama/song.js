@@ -196,6 +196,7 @@ var music = {
         music.pauseAllSongs();
         if (music.songList[music.songList.currentSong].currentTime > 5) {
             music.songList[music.songList.currentSong].currentTime = 0;
+            music.playSong();
         } else if (music.songList.currentSong === 0) {
             music.songList.currentSong = music.songList.length - 1;
             music.playSong();
