@@ -1,6 +1,6 @@
 [{
     src: '//a.tumblr.com/tumblr_mb113crOTh1qjp4a2o1.mp3',
-    img: 'art/2.jpg',
+    img: 'art/1.jpg',
     title: 'Moonlight'
 }, {
     src: '//media001c.mywedding.com/music_songs/10/162/10162942-0eddc439.mp3',
@@ -12,6 +12,6 @@
     title: 'Pirates of the Carribean'
 }, {
     src: '//a.tumblr.com/tumblr_lvg5gnrcKF1qcxi2ko1.mp3',
-    img: 'art/2.jpg',
+    img: 'art/1.jpg',
     title: 'The Cello Song'
 }];

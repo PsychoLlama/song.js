@@ -10,18 +10,8 @@ var music = {
         head.appendChild(link);
 
         music.buildFrame(head);
-
-        var play = document.getElementsByClassName('fa-play')[0];
-        play.addEventListener('click', togglePlay);
-
-        function togglePlay() {
-            if (play.className.match(/play/g)) {
-                play.className = play.className.replace(/play/g, 'pause');
-            } else {
-                play.className = play.className.replace(/pause/g, 'play');
-            }
-        }
     },
+
     buildFrame: function(head) {
         // Create the frame to hold all music data
         // PLEASE! Future me, make this smaller and less horrible looking.
@@ -37,6 +27,10 @@ var music = {
         this.playlist.setAttribute('class', 'music panel playlist noselect');
         this.container.appendChild(this.playlist);
 
+        this.progress = document.createElement('hr');
+        this.progress.setAttribute('class', 'music panel');
+        this.container.appendChild(this.progress);
+
         this.panel = document.createElement('div');
         this.panel.setAttribute('class', 'music panel controls noselect');
         this.container.appendChild(this.panel);
@@ -48,6 +42,7 @@ var music = {
         this.play = document.createElement('span');
         this.play.setAttribute('class', 'fa fa-play');
         this.panel.appendChild(this.play);
+        console.log(this.play);
 
         this.nextButton = document.createElement('span');
         this.nextButton.setAttribute('class', 'fa fa-fast-forward');
@@ -58,6 +53,7 @@ var music = {
 
         this.loadPlaylists();
     },
+
     loadPlaylists: function() {
         // Playlists is an object array, with title and source properties
         try {
@@ -85,40 +81,114 @@ var music = {
                 '];');
         }
     },
+
     requestSongs: function(e) {
+        music.playlist.outerHTML = '';
         var url = e.target.getAttribute('data-src');
 
         var request = new XMLHttpRequest();
         request.open('GET', url);
         request.addEventListener('load', function(e) {
             if (request.status === 200) {
-                music.loadSongs(this.response);
+                music.loadSongs(request.response);
             } else {
                 throw new Error('Error loading playlist source. Check the url, and try again.');
             }
         });
         request.send(null);
     },
+
     loadSongs: function(response) {
         if (response.match(/^\s*\[(\{\s*src:\s*[\'\"].+?[\'\"],\s*img:\s*[\'\"].+?[\'\"],\s*title:\s*[\'\"].+?[\'\"]\s*},?\s*)*\s*\];?\s*$/)) {
             // Not going to kill us all. Proceed.
-            this.songList = eval(response);
-            console.log(this.songList);
+            var playlistData = eval(response);
 
-            for (var i = 0; i < this.songList.length; i++) {
+            this.songList = [];
+
+            // FUTURE SHUFFLE FUNCTION HERE
+
+            for (var i = 0; i < playlistData.length; i++) {
                 var audio = document.createElement('audio');
-                audio.setAttribute('src', this.songList[i].src);
+                audio.setAttribute('src', playlistData[i].src);
+                audio.setAttribute('data-img', playlistData[i].img);
+                audio.setAttribute('data-title', playlistData[i].title);
+
+                audio.onended = this.nextSong;
+                audio.ontimeupdate = this.updateProgress;
+
+                this.songList.push(audio);
+
                 this.container.appendChild(audio);
             }
 
+            this.songList.currentSong = 0;
+            this.updateArtwork(this.songList[this.songList.currentSong]);
 
+            this.bindControls();
         } else {
             throw new Error('For security reasons, we cannot parse your playlist file. Please check your syntax, and try again.' +
-                '\nDeclare an object array. Each object should hold a src: to a song file, '+
+                '\nDeclare an object array. Each object should hold a src: to a song file, ' +
                 'an img: source, and a song title: property. Whitespace does not matter.');
         }
-    }
+    },
+
+    bindControls: function() {
+        this.play.addEventListener('click', this.togglePlay);
+    },
+
+    togglePlay: function() {
+        // Careful! 'this' refers to the event.target now.
+        if (this.className.match(/play/g)) {
+            // User has asked to play song
+            music.playSong();
+
+            this.className = this.className.replace(/play/g, 'pause');
+        } else {
+            music.pauseSong();
+            this.className = this.className.replace(/pause/g, 'play');
+        }
+    },
+
+    playSong: function() {
+        if (music.songList.currentSong === (music.songList.length - 1) && music.songList[music.songList.currentSong].ended === true) {
+            // The last song has ended, and play has been requested
+
+            // FUTURE SHUFFLE FUNCTION HERE
+            this.songList.currentSong = 0;
+        }
+        this.songList[this.songList.currentSong].play();
+    },
+
+    pauseSong: function() {
+        this.songList[this.songList.currentSong].pause();
+    },
+
+    updateArtwork: function(node) {
+        this.albumArt.src = node.getAttribute('data-img');
+    },
+
+    updateProgress: function() {
+        // 'this' is now refers to the event
+        var percent = (this.currentTime / this.duration) * 100;
+        music.progress.style.width = percent + '%';
+    },
+
+    nextSong: function() {
+        if (music.songList.currentSong === music.songList.length -1 && music.repeat) {
+            // We're on the last song, and repeat is on.
+            music.playSong();
+        } else if (music.songList.currentSong === music.songList.length -1 && music.repeat === false) {
+            // Last song, repeat is off.
+            return;
+        } else {
+            music.songList.currentSong++;
+            music.playSong();
+        }
+    },
+
+    repeat: true
 }
+
 // Handle script injection, post load
 if (document.readyState === 'complete') {
     music.loadHandler();

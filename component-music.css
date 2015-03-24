@@ -6,6 +6,7 @@
 
     display: inline-block;
     margin: 10px;
+    box-shadow: 0 4px 8px #888f80;
 }
 
 .music.panel {
@@ -52,7 +53,6 @@
     line-height: 40px;
 
     background-color: rgba(255, 255, 255, 0.8);
-    border-top: 1px solid rgba(255, 255, 255, 0.9);
 }
 .music.panel span[class~='fa'] {
     margin: 0 20px;
@@ -69,8 +69,15 @@
     margin-bottom: -5px;
 }
 
-.music audio {
+.music.container audio {
     display: none;
+}
+
+.music.container hr {
+    bottom: 32px;
+    background-color: rgba(255, 0, 0, 0.8);
+    border: none;
+    height: 2px;
 }
 
 body {
@@ -95,16 +102,19 @@ body {
         margin: 0;
     }
     .music.container {
-        box-shadow: 0 0 7px #888f80;
+        margin: 0;
     }
     .music.panel.playlist {
-        height: calc(100% - 40px);
+        height: calc(100% - 41px);
     }
     .music.panel.controls {
         bottom: -1px;
     }
     .music.playlist .playlist-item {
         padding: 15px 10px;
+    }
+    .music.container hr {
+        bottom: 31px;
     }
     .music.panel.controls,
     .music.panel,
