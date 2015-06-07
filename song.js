@@ -8,18 +8,18 @@ var song = {
         
         for (var i = 0; i < playlist.length; i++) {
             var audio = song.buildAudio(
-                playlist[i].src,
                 playlist[i].title,
+                playlist[i].src,
                 playlist[i].img);
             song.playlist.push(audio);
         }
         return song.playlist;
     },
-    buildAudio: function(src, title, img) {
+    buildAudio: function(title, src, img) {
         var aud = document.createElement('audio');
         
-        if (src) aud.src = src;
         if (title) aud.setAttribute('data-title', title);
+        if (src) aud.src = src;
         if (img) aud.setAttribute('data-img', img);
         
         aud.addEventListener('ended', song.updateIndex);
@@ -31,22 +31,21 @@ var song = {
             if (song.repeat) {
                 song.currentIndex = 0;
             }
-        }
+        } else song.currentIndex++;
     },
     
     getSong: function() {
         return song.playlist[song.currentIndex];
     },
     shuffle: function() {
-        song.playlist.sort(function() {
-            Math.floor(Math.random() * 3) - 1;
+        // returns playlist after sort
+        return song.playlist.sort(function() {
+            return Math.floor(Math.random() * 3) - 1;
         });
-        
-        return song.playlist;
     }
 };
 
-var playlist = [{
+var sampleData = [{
     src: '//datashat.net/music_for_programming_1-datassette.mp3',
     img: 'art/song1.png',
     title: 'Song #1'
@@ -63,4 +62,4 @@ var playlist = [{
     img: 'art/song4.png',
     title: 'Song #4'
 }];
-console.log(song.add(playlist).sort(shuffle));
+song.add(sampleData);
