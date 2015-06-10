@@ -8,7 +8,7 @@ interpretation to how it should be done.
 <strong>song.playlist</strong>: array of HTML nodes.<br>
 <strong>song.add(objArray)</strong>: pass an object array with src, img and title properties.
 This will construct the <audio> nodes and push them to the playlist.<br>
-<strong>song.shuffle()</strong>: randomly re-orders the playlist.
+<strong>song.shuffle()</strong>: randomly re-orders the playlist.<br>
 <strong>song.getSong()</strong>: retrieves the current song as an <audio> element.
 
 <i>Less Useful APIs</i><br>
