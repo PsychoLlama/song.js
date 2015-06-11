@@ -9,10 +9,8 @@ interpretation to how it should be done.
 <strong>song.add(objArray)</strong>: pass an object array with src, img and title properties.
 This will construct the <audio> nodes and push them to the playlist.<br>
 <strong>song.shuffle()</strong>: randomly re-orders the playlist.<br>
-<strong>song.getSong()</strong>: retrieves the current song as an <audio> element.
+Song tracking coming soon, so you can keep track of what song is playing.
 
 <i>Less Useful APIs</i><br>
 <strong>song.buildAudio(title, src, img)</strong>: pass in an object {src, title, img}
-and it returns an <audio> element built to suite.<br>
-<strong>song.updateIndex()</strong>: called whenever a song built with buildAudio() ends. It keeps track of the
-playlist index of the current song.
+and it returns an <audio> element built to suite.
