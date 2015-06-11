@@ -27,14 +27,12 @@ var song = {
         return aud;
     },
     updateIndex: function() {
-        if (song.currentIndex === song.playlist.length - 1) {
-            if (song.repeat) {
-                song.currentIndex = 0;
-            }
-        } else song.currentIndex++;
+        console.log('ended');
+        // DO NOT TRUST THIS
     },
     
     getSong: function() {
+        // returns the current <audio> node from playlist[]
         return song.playlist[song.currentIndex];
     },
     shuffle: function() {
@@ -62,4 +60,3 @@ var sampleData = [{
     img: 'art/song4.png',
     title: 'Song #4'
 }];
-song.add(sampleData);
