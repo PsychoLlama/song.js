@@ -1,7 +1,7 @@
 var song = {
     repeat: false,
     playlist: [],
-    currentIndex: 0,
+    history: [],
     
     add: function(playlist) {
         if (playlist.length === 0) return;
@@ -15,6 +15,7 @@ var song = {
         }
         return song.playlist;
     },
+    
     buildAudio: function(title, src, img) {
         var aud = document.createElement('audio');
         
@@ -22,19 +23,21 @@ var song = {
         if (src) aud.src = src;
         if (img) aud.setAttribute('data-img', img);
         
-        aud.addEventListener('ended', song.updateIndex);
+        aud.addEventListener('ended', song.updateHistory);
         
         return aud;
     },
-    updateIndex: function() {
-        console.log('ended');
-        // DO NOT TRUST THIS
+    
+    updateHistory: function(e) {
+        var last = song.history.length - 1;
+        if (song.history[last] === e.target) {
+            return;
+            // If this song was just played, don't add it to history.
+        } else {
+            song.history.push(e.target);
+        }
     },
     
-    getSong: function() {
-        // returns the current <audio> node from playlist[]
-        return song.playlist[song.currentIndex];
-    },
     shuffle: function() {
         // returns playlist after sort
         return song.playlist.sort(function() {
