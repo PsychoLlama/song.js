@@ -1,4 +1,4 @@
-[{
+var sampleData = [{
     src: '//datashat.net/music_for_programming_1-datassette.mp3',
     img: 'art/song1.png',
     title: 'Song #1'
