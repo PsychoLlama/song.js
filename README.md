@@ -4,13 +4,14 @@
 When building an HTML5 music player, you'll want some way to manage your songs. This library is a newbie's
 interpretation to how it should be done.
 
-<i>Useful APIs</i><br>
-<strong>song.playlist</strong>: array of HTML nodes.<br>
-<strong>song.add(objArray)</strong>: pass an object array with src, img and title properties.
-This will construct the <audio> nodes and push them to the playlist.<br>
-<strong>song.shuffle()</strong>: randomly re-orders the playlist.<br>
-Song tracking coming soon, so you can keep track of what song is playing.
+<p>
+Call <code>var example = new Song()</code> to build a new playlist.<br>
+Next, call <code>example.add(playlist)</code> to construct the audio nodes and push them to the <code>example.playlist</code> property.<br>
+The playlist you pass in should be an object array <code>{title, srcURL, imgURL}</code>.<br>
+Use <code>example.shuffle()</code> to randomly re-order your playlist array.<br>
+All history is stored in the <code>example.history</code> array. Use it to find what song played last.
+</p>
 
-<i>Less Useful APIs</i><br>
-<strong>song.buildAudio(title, src, img)</strong>: pass in an object {src, title, img}
-and it returns an <audio> element built to suite.
+<p>
+I'm working on a way to keep track of what song is playing and return it upon request.
+</p>
