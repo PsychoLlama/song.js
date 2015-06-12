@@ -25,5 +25,7 @@
   this to you by giving an <code>example.next()</code> method. This will change
   the index number used to find the audio element in the playlist array. It is
   sensitive to the repeat boolean. If you choose not to use this system, nothing
-  will break.
+  will break.<br>
+  As a bonus, by using this system you can use the
+  <code>example.getSong()</code> method to retrieve your current song.
 </p>
