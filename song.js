@@ -55,18 +55,15 @@ Song.prototype.next = function() {
     // It checks whether the song is the last one in the playlist
     //    and if repeat is on.
     // It will return the current song or undefined.
-    switch(last) {
-        case this.songNumber === last && this.repeat:
-            this.songNumber = 0;
-            return this.playlist[this.songNumber];
-        case this.songNumber === last && this.repeat === false:
-            return undefined;
-        case this.songNumber < last:
-            this.songNumber++;
-            return this.playlist[this.songNumber];
-        default:
-            return undefined;
-    }
+    if (this.songNumber === last && this.repeat) {
+        this.songNumber = 0;
+        return this.getSong();
+    } else if (this.songNumber === last && this.repeat === false) {
+        return undefined;
+    } else if (this.songNumber < last) {
+        this.songNumber++;
+        return this.getSong();
+    } else return undefined;
 };
 
 Song.prototype.getSong = function() {
