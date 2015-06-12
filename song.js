@@ -68,3 +68,7 @@ Song.prototype.next = function() {
             return undefined;
     }
 };
+
+Song.prototype.getSong = function() {
+    return this.playlist[this.songNumber];
+};
