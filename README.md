@@ -22,8 +22,10 @@
 <p>
   There are many ways you could manipulate the playlist. This makes it difficult
   to say which song is playing. Since you know your implementation best, I leave
-  this to you by giving an <code>example.next()</code> method. This will change
-  the index number used to find the audio element in the playlist array. It is
+  this to you by giving you <code>example.next()</code> and
+  <code>example.previous</code> methods. This will change
+  the index number used to find the audio element in the playlist array.
+  <code>next</code> is
   sensitive to the repeat boolean. If you choose not to use this system, nothing
   will break.<br>
   As a bonus, by using this system you can use the
