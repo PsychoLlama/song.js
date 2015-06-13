@@ -42,6 +42,8 @@ Song.prototype.updateHistory= function(e) {
 };
 
 Song.prototype.shuffle = function() {
+    this.songNumber = 0;
+    
     // returns playlist after sort
     return this.playlist.sort(function() {
         return Math.floor(Math.random() * 3) - 1;
@@ -64,6 +66,21 @@ Song.prototype.next = function() {
         this.songNumber++;
         return this.getSong();
     } else return undefined;
+};
+
+Song.prototype.previous = function() {
+    var aud = this.getSong();
+    
+    if (aud.currentTime > 5) {
+        aud.currentTime = 0;
+        return aud;
+    } else if (this.songNumber === 0) {
+        this.songNumber = this.playlist.length - 1;
+        return this.getSong();
+    } else {
+        this.songNumber--;
+        return this.getSong();
+    }
 };
 
 Song.prototype.getSong = function() {
