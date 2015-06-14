@@ -32,12 +32,12 @@ Song.prototype.buildAudio = function(title, src, img) {
 };
 
 Song.prototype.updateHistory = function(e) {
-    var last = Song.history.length - 1;
-    if (Song.history[last] === e.target) {
+    var last = Song.prototype.history.length - 1;
+    if (Song.prototype.history[last] === e.target) {
         return;
         // If this song was just played, don't add it to history.
     } else {
-        Song.history.push(e.target);
+        Song.prototype.history.push(e.target);
     }
 };
 
