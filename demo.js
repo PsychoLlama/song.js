@@ -26,7 +26,7 @@ window.onload = function() {
 
     // Add controls to all <audio>
     // Replace ended songs with the next one
-    for (var i = 0; i < song.playlist.length - 1; i++) {
+    for (var i = 0; i < song.playlist.length; i++) {
         song.playlist[i].controls = true;
         
         song.playlist[i].addEventListener('ended', function() {
