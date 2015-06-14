@@ -31,13 +31,13 @@ Song.prototype.buildAudio = function(title, src, img) {
     return aud;
 };
 
-Song.prototype.updateHistory= function(e) {
-    var last = this.history.length - 1;
-    if (this.history[last] === e.target) {
+Song.prototype.updateHistory = function(e) {
+    var last = Song.history.length - 1;
+    if (Song.history[last] === e.target) {
         return;
         // If this song was just played, don't add it to history.
     } else {
-        this.history.push(e.target);
+        Song.history.push(e.target);
     }
 };
 
