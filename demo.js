@@ -19,6 +19,7 @@ var sampleData = [{
 
 var song = new Song();
 song.add(sampleData);
+song.repeat = true;
 song.shuffle();
 
 window.onload = function() {
