@@ -1,3 +1,4 @@
+// This file loads in and injects sampleData for the demo website.
 var sampleData = [{
     src: '//datashat.net/music_for_programming_1-datassette.mp3',
     img: 'art/song1.png',
@@ -15,3 +16,24 @@ var sampleData = [{
     img: 'art/song4.png',
     title: 'Song #4'
 }];
+
+var song = new Song();
+song.add(sampleData);
+song.shuffle();
+
+window.onload = function() {
+    var body = document.getElementsByTagName('body')[0];
+
+    // Add controls to all <audio>
+    // Replace ended songs with the next one
+    for (var i = 0; i < song.playlist.length - 1; i++) {
+        song.playlist[i].controls = true;
+        
+        song.playlist[i].addEventListener('ended', function() {
+            var oldSong = song.getSong();
+            body.replaceChild(song.next(), oldSong);
+        });
+    }
+    
+    body.appendChild(song.getSong());
+};
