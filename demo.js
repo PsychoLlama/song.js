@@ -25,17 +25,8 @@ song.shuffle();
 
 window.onload = function() {
     var body = document.getElementsByTagName('body')[0];
-
-    // Add controls to all <audio>
-    // Replace ended songs with the next one
-    for (var i = 0; i < song.playlist.length; i++) {
-        song.playlist[i].controls = true;
-        
-        song.playlist[i].addEventListener('ended', function() {
-            var oldSong = song.getSong();
-            body.replaceChild(song.next(), oldSong);
-        });
-    }
     
     body.appendChild(song.getSong());
+    
+    song.manage(body);
 };
