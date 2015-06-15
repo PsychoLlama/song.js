@@ -1,3 +1,5 @@
+"use strict";
+
 // This file loads in and injects sampleData for the demo website.
 var sampleData = [{
     src: '//datashat.net/music_for_programming_1-datassette.mp3',

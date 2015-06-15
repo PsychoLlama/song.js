@@ -1,3 +1,4 @@
+"use strict";
 var Song = function() {
     this.repeat = false;
     this.playlist = [];
