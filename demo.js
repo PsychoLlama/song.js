@@ -26,6 +26,10 @@ song.shuffle();
 window.onload = function() {
     var body = document.getElementsByTagName('body')[0];
     
+    song.playlist.forEach(function(elem) {
+        elem.controls = true;
+    });
+    
     body.appendChild(song.getSong());
     
     song.manage(body);
