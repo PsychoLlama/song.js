@@ -20,7 +20,6 @@ var sampleData = [{
 }];
 
 var song = new Song(sampleData);
-song.add(sampleData);
 song.repeat = true;
 song.shuffle();
 
