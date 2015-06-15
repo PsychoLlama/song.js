@@ -1,7 +1,10 @@
 "use strict";
-var Song = function() {
+var Song = function(playlist) {
     this.repeat = false;
+    
     this.playlist = [];
+    this.add(playlist);
+    
     this.songNumber = 0;
 };
 
