@@ -64,12 +64,26 @@ Song.prototype.next = function() {
     if (this.songNumber === last && this.repeat) {
         this.songNumber = 0;
         return this.getSong();
+        
     } else if (this.songNumber === last && this.repeat === false) {
         return undefined;
+        
     } else if (this.songNumber < last) {
         this.songNumber++;
         return this.getSong();
+        
     } else return undefined;
+};
+
+Song.prototype.manage = function(container) {
+    var playlist = this;
+    var currentSong = playlist.getSong();
+    
+    this.playlist.forEach(function(element) {
+        element.addEventListener('ended', function() {
+            container.replaceChild(playlist.next(), currentSong);
+        });
+    });
 };
 
 Song.prototype.previous = function() {
@@ -78,9 +92,11 @@ Song.prototype.previous = function() {
     if (aud.currentTime > 5) {
         aud.currentTime = 0;
         return aud;
+        
     } else if (this.songNumber === 0) {
         this.songNumber = this.playlist.length - 1;
         return this.getSong();
+        
     } else {
         this.songNumber--;
         return this.getSong();
