@@ -2,19 +2,19 @@
 <strong>Playlist Management Library</strong>
 
 <p>
-  When building an HTML5 music player, you'll want some way to manage your songs.
-  This library is a newbie's
-  interpretation to how it should be done.
+  When building an HTML5 music player, you'll want some way to manage
+  your songs.
+  This library is a newbie's interpretation to how it should be done.
 </p>
 
 <p>
-  Call <code>var example = new Song()</code> to build a new playlist.<br>
-  Next, call <code>example.add(playlist)</code> to construct the audio nodes
-  and push them to the <code>example.playlist</code> property.<br>
-  The playlist you pass in should be an object array <code>{title, srcURL,
-  imgURL}</code>.<br>
-  Use <code>example.shuffle()</code> to randomly re-order your playlist
-  array.<br>
+  Call <code>var example = new Song(playlist)</code> to build a new
+  playlist. The playlist you pass in should be an object array
+  <code>{title, srcURL, imgURL}</code>. This will construct
+  <code>&lt;audio&gt;</code> nodes and push them to the
+  <code>example.playlist</code> array.<br>
+  <b>Optional:</b> Use <code>example.shuffle()</code> to randomly re-order your
+  playlist array.<br>
   All history is stored in the <code>example.history</code> array. Use it to
   find what song played last.
 </p>
@@ -30,4 +30,10 @@
   will break.<br>
   As a bonus, by using this system you can use the
   <code>example.getSong()</code> method to retrieve your current song.
+</p>
+
+<p>
+  Newly included is the <code>example.manage(container)</code> method. Pass in
+  the containing DOM node and the playlist will automatically swap your
+  <code>&lt;audio&gt;</code> element to the next song when it ends.
 </p>
