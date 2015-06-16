@@ -94,6 +94,7 @@ Song.prototype.previous = function() {
 
 Song.prototype.resetSongs = function() {
     this.playlist.forEach(function(ele) {
+        ele.pause();
         ele.currentTime = 0;
     });
 };
