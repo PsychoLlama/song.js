@@ -55,20 +55,18 @@ Song.prototype.shuffle = function() {
 };
 
 Song.prototype.next = function() {
-    var last = this.playlist.length - 1;
+    var lastSong = this.playlist.length - 1;
+    var isLastSong = (this.songNumber === lastSong);
+    var repeat = this.repeat;
     
-    // This block is pretty complex.
-    // It checks whether the song is the last one in the playlist
-    //    and if repeat is on.
-    // It will return the current song or undefined.
-    if (this.songNumber === last && this.repeat) {
+    if (isLastSong && repeat) {
         this.songNumber = 0;
         return this.getSong();
         
-    } else if (this.songNumber === last && this.repeat === false) {
+    } else if (isLastSong && !repeat) {
         return undefined;
         
-    } else if (this.songNumber < last) {
+    } else if (this.songNumber < lastSong) {
         this.songNumber++;
         return this.getSong();
         
