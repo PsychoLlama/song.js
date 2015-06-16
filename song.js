@@ -92,6 +92,12 @@ Song.prototype.previous = function() {
     }
 };
 
+Song.prototype.resetSongs = function() {
+    this.playlist.forEach(function(ele) {
+        ele.currentTime = 0;
+    });
+};
+
 Song.prototype.getSong = function() {
     return this.playlist[this.songNumber];
 };
