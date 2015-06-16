@@ -75,17 +75,6 @@ Song.prototype.next = function() {
     } else return undefined;
 };
 
-Song.prototype.manage = function(container) {
-    var playlist = this;
-    var currentSong = playlist.getSong();
-    
-    this.playlist.forEach(function(element) {
-        element.addEventListener('ended', function() {
-            container.replaceChild(playlist.next(), currentSong);
-        });
-    });
-};
-
 Song.prototype.previous = function() {
     var aud = this.getSong();
     
