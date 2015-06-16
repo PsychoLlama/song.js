@@ -79,13 +79,13 @@ Song.prototype.previous = function() {
         
     } else if (this.songNumber === 0) {
         this.songNumber = this.playlist.length - 1;
-        return this.getSong();
         
     } else if (this.songNumber > 0) {
         this.songNumber--;
-        return this.getSong();
         
-    } else return undefined;
+    }
+    
+    return this.getSong();
 };
 
 Song.prototype.resetSongs = function() {
