@@ -30,18 +30,16 @@ Song.prototype.buildAudio = function(title, src, img) {
     if (src) aud.src = src;
     if (img) aud.setAttribute('data-img', img);
     
-    aud.addEventListener('ended', this.updateHistory);
-    
     return aud;
 };
 
-Song.prototype.updateHistory = function(e) {
+Song.prototype.updateHistory = function(song) {
     var last = Song.prototype.history.length - 1;
-    if (Song.prototype.history[last] === e.target) {
+    if (Song.prototype.history[last] === song) {
         return;
         // If this song was just played, don't add it to history.
     } else {
-        Song.prototype.history.push(e.target);
+        Song.prototype.history.push(song);
     }
 };
 
@@ -61,16 +59,15 @@ Song.prototype.next = function() {
     
     if (isLastSong && repeat) {
         this.songNumber = 0;
-        return this.getSong();
         
     } else if (isLastSong && !repeat) {
         return undefined;
         
     } else if (this.songNumber < lastSong) {
         this.songNumber++;
-        return this.getSong();
-        
-    } else return undefined;
+    }
+    
+    return this.getSong();
 };
 
 Song.prototype.previous = function() {
@@ -84,10 +81,11 @@ Song.prototype.previous = function() {
         this.songNumber = this.playlist.length - 1;
         return this.getSong();
         
-    } else {
+    } else if (this.songNumber > 0) {
         this.songNumber--;
         return this.getSong();
-    }
+        
+    } else return undefined;
 };
 
 Song.prototype.resetSongs = function() {
