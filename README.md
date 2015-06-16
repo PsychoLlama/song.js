@@ -31,9 +31,3 @@
   As a bonus, by using this system you can use the
   <code>example.getSong()</code> method to retrieve your current song.
 </p>
-
-<p>
-  Newly included is the <code>example.manage(container)</code> method. Pass in
-  the containing DOM node and the playlist will automatically swap your
-  <code>&lt;audio&gt;</code> element to the next song when it ends.
-</p>
