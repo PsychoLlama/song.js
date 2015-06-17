@@ -11,7 +11,7 @@ function buildAudio(title, src, img) {
     return aud;
 }
 
-function add(playlist) {
+function add(playlist, destination) {
     if (playlist.length === 0) return;
     
     for (var i = 0; i < playlist.length; i++) {
@@ -19,7 +19,7 @@ function add(playlist) {
             playlist[i].title,
             playlist[i].src,
             playlist[i].img);
-        this.playlist.push(audio);
+        destination.push(audio);
     }
     return this.playlist;
 }
@@ -28,7 +28,7 @@ var Song = function(playlist) {
     this.repeat = false;
     
     this.playlist = [];
-    add(playlist);
+    add(playlist, this.playlist);
     
     this.songNumber = 0;
 };
