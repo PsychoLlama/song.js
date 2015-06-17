@@ -1,4 +1,4 @@
-(function() {
+var Song = (function() {
     "use strict";
     
     
@@ -105,4 +105,6 @@
     Song.prototype.getSong = function() {
         return this.playlist[this.songNumber];
     };
+    
+    return Song;
 });
