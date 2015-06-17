@@ -57,6 +57,8 @@ Song.prototype.next = function() {
     var isLastSong = (this.songNumber === lastSong);
     var repeat = this.repeat;
     
+    this.resetSongs();
+    
     if (isLastSong && repeat) {
         this.songNumber = 0;
         
@@ -67,14 +69,15 @@ Song.prototype.next = function() {
         this.songNumber++;
     }
     
+    this.updateHistory(this.getSong());
     return this.getSong();
 };
 
 Song.prototype.previous = function() {
     var aud = this.getSong();
+    this.resetSongs();
     
     if (aud.currentTime > 5) {
-        aud.currentTime = 0;
         return aud;
         
     } else if (this.songNumber === 0) {
@@ -82,9 +85,9 @@ Song.prototype.previous = function() {
         
     } else if (this.songNumber > 0) {
         this.songNumber--;
-        
     }
     
+    this.updateHistory(this.getSong());
     return this.getSong();
 };
 
