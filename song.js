@@ -21,7 +21,7 @@ function add(playlist, destination) {
             playlist[i].img);
         destination.push(audio);
     }
-    return this.playlist;
+    return destination;
 }
 
 var Song = function(playlist) {
