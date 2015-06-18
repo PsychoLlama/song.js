@@ -1,5 +1,5 @@
 var Song;
-(function() {
+var debug = (function() {
     
     function buildAudio(title, src, img) {
         var aud = document.createElement('audio');
