@@ -1,6 +1,6 @@
-var Song = (function() {
+var Song;
+(function() {
     "use strict";
-    
     
     function buildAudio(title, src, img) {
         var aud = document.createElement('audio');
@@ -25,7 +25,7 @@ var Song = (function() {
         return destination;
     }
     
-    var Song = function(playlist) {
+    Song = function(playlist) {
         this.repeat = false;
     
         this.playlist = [];
@@ -105,6 +105,4 @@ var Song = (function() {
     Song.prototype.getSong = function() {
         return this.playlist[this.songNumber];
     };
-    
-    return Song;
 });
