@@ -1,6 +1,5 @@
 var Song;
 (function() {
-    "use strict";
     
     function buildAudio(title, src, img) {
         var aud = document.createElement('audio');
