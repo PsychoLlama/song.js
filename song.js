@@ -1,4 +1,4 @@
-var debug = (function() {
+(function() {
     'use strict';
     
     var root = this;
