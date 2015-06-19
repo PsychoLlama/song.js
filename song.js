@@ -1,4 +1,3 @@
-var Song;
 var debug = (function() {
     'use strict';
     
