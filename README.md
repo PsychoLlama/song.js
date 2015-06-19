@@ -12,7 +12,10 @@
   playlist. The playlist you pass in should be an object array
   <code>{title, srcURL, imgURL}</code>. This will construct
   <code>&lt;audio&gt;</code> nodes and push them to the
-  <code>example.playlist</code> array.<br>
+  <code>example.playlist</code> array.
+</p>
+  
+<p>
   <b>Optional:</b> Use <code>example.shuffle()</code> to randomly re-order your
   playlist array.<br>
   All history is stored in the <code>example.history</code> array. Use it to
