@@ -1,5 +1,9 @@
-var Song;
+var root.Song;
 var debug = (function() {
+    'use strict';
+    
+    var root = this;
+    
     
     function buildAudio(title, src, img) {
         var aud = document.createElement('audio');
@@ -24,7 +28,7 @@ var debug = (function() {
         return destination;
     }
     
-    Song = function(playlist) {
+    root.Song = function(playlist) {
         this.repeat = false;
     
         this.playlist = [];
@@ -33,20 +37,20 @@ var debug = (function() {
         this.songNumber = 0;
     };
     
-    Song.prototype.history = [];
+    root.Song.prototype.history = [];
     
     
-    Song.prototype.updateHistory = function(song) {
-        var last = Song.prototype.history.length - 1;
-        if (Song.prototype.history[last] === song) {
+    root.Song.prototype.updateHistory = function(song) {
+        var last = root.Song.prototype.history.length - 1;
+        if (root.Song.prototype.history[last] === song) {
             return;
             // If this song was just played, don't add it to history.
         } else {
-            Song.prototype.history.push(song);
+            root.Song.prototype.history.push(song);
         }
     };
     
-    Song.prototype.shuffle = function() {
+    root.Song.prototype.shuffle = function() {
         this.songNumber = 0;
     
         // returns playlist after sort
@@ -55,30 +59,30 @@ var debug = (function() {
         });
     };
     
-    Song.prototype.next = function() {
-        var lastSong = this.playlist.length - 1;
-        var isLastSong = (this.songNumber === lastSong);
+    root.Song.prototype.next = function() {
+        var lastroot.Song = this.playlist.length - 1;
+        var isLastroot.Song = (this.songNumber === lastroot.Song);
         var repeat = this.repeat;
     
-        this.resetSongs();
+        this.resetroot.Songs();
     
-        if (isLastSong && repeat) {
+        if (isLastroot.Song && repeat) {
             this.songNumber = 0;
     
-        } else if (isLastSong && !repeat) {
+        } else if (isLastroot.Song && !repeat) {
             return undefined;
     
-        } else if (this.songNumber < lastSong) {
+        } else if (this.songNumber < lastroot.Song) {
             this.songNumber++;
         }
     
-        this.updateHistory(this.getSong());
-        return this.getSong();
+        this.updateHistory(this.getroot.Song());
+        return this.getroot.Song();
     };
     
-    Song.prototype.previous = function() {
-        var aud = this.getSong();
-        this.resetSongs();
+    root.Song.prototype.previous = function() {
+        var aud = this.getroot.Song();
+        this.resetroot.Songs();
     
         if (aud.currentTime > 5) {
             return aud;
@@ -90,18 +94,18 @@ var debug = (function() {
             this.songNumber--;
         }
     
-        this.updateHistory(this.getSong());
-        return this.getSong();
+        this.updateHistory(this.getroot.Song());
+        return this.getroot.Song();
     };
     
-    Song.prototype.resetSongs = function() {
+    root.Song.prototype.resetroot.Songs = function() {
         this.playlist.forEach(function(ele) {
             ele.pause();
             ele.currentTime = 0;
         });
     };
     
-    Song.prototype.getSong = function() {
+    root.Song.prototype.getroot.Song = function() {
         return this.playlist[this.songNumber];
     };
-});
+}).call(this);
