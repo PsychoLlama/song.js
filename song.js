@@ -40,7 +40,7 @@
     
     
     root.Song.prototype.updateHistory = function(song) {
-        var last = Song.prototype.history.length - 1;
+        var last = root.Song.prototype.history.length - 1;
         if (root.Song.prototype.history[last] === song) {
             return;
             // If this song was just played, don't add it to history.
@@ -50,6 +50,7 @@
     };
     
     root.Song.prototype.shuffle = function() {
+        this.resetSongs();
         this.songNumber = 0;
     
         // returns playlist after sort
@@ -79,7 +80,7 @@
         return this.getSong();
     };
     
-    Song.prototype.previous = function() {
+    root.Song.prototype.previous = function() {
         var aud = this.getSong();
         this.resetSongs();
     
