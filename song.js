@@ -50,13 +50,16 @@
     };
     
     root.Song.prototype.shuffle = function() {
-        this.resetSongs();
         this.songNumber = 0;
     
-        // returns playlist after sort
-        return this.playlist.sort(function() {
+        // randomly sort playlist array
+        this.playlist.sort(function() {
             return Math.floor(Math.random() * 3) - 1;
         });
+        
+        this.resetSongs();
+        
+        return this.playlist;
     };
     
     root.Song.prototype.next = function() {
