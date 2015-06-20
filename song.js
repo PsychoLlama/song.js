@@ -1,7 +1,5 @@
-(function() {
+(function(root) {
     'use strict';
-    
-    var root = this;
     
     
     function buildAudio(title, src, img) {
@@ -111,4 +109,4 @@
     root.Song.prototype.getSong = function() {
         return this.playlist[this.songNumber];
     };
-}).call(this);
+})(this);
