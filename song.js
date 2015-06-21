@@ -99,11 +99,10 @@ var Song = (function() {
     };
     
     Song.prototype.resetSongs = function() {
-        for (var i = 0; i < this.playlist.length; i++) {
-            this.playlist[i].pause();
-            console.log(this.playlist[i]);
-            this.playlist[i].currentTime = 0;
-        }
+        this.playlist.forEach(function(ele) {
+            ele.pause();
+            if (ele.currentTime) ele.currentTime = 0;
+        });
     };
     
     Song.prototype.getSong = function() {
