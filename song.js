@@ -83,7 +83,6 @@ var Song = (function() {
     
     Song.prototype.previous = function() {
         var aud = this.getSong();
-        this.resetSongs();
     
         if (aud.currentTime > 5) {
             return aud;
@@ -95,6 +94,7 @@ var Song = (function() {
             this.songNumber--;
         }
     
+        this.resetSongs();
         this.updateHistory(this.getSong());
         return this.getSong();
     };
