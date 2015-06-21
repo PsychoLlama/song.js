@@ -1,7 +1,6 @@
 var Song = (function() {
     'use strict';
     
-    
     function buildAudio(title, src, img) {
         var aud = document.createElement('audio');
     
@@ -49,13 +48,12 @@ var Song = (function() {
     
     Song.prototype.shuffle = function() {
         this.songNumber = 0;
+        this.resetSongs();
     
         // randomly sort playlist array
         this.playlist.sort(function() {
             return Math.floor(Math.random() * 3) - 1;
         });
-        
-        this.resetSongs();
         
         return this.playlist;
     };
