@@ -100,6 +100,7 @@ var Song = (function() {
     
     Song.prototype.resetSongs = function() {
         for (var i = 0; i < this.playlist.length; i++) {
+            console.log(this.playlist[i]);
             this.playlist[i].pause();
             this.playlist[i].currentTime = 0;
         }
