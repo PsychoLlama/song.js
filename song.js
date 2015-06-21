@@ -48,13 +48,13 @@ var Song = (function() {
     
     Song.prototype.shuffle = function() {
         this.songNumber = 0;
-        this.resetSongs();
     
         // randomly sort playlist array
         this.playlist.sort(function() {
             return Math.floor(Math.random() * 3) - 1;
         });
         
+        this.resetSongs();
         return this.playlist;
     };
     
@@ -99,10 +99,10 @@ var Song = (function() {
     };
     
     Song.prototype.resetSongs = function() {
-        this.playlist.forEach(function(ele) {
-            ele.pause();
-            ele.currentTime = 0;
-        });
+        for (var i = 0; i < this.playlist.length; i++) {
+            this.playlist[i].pause();
+            this.playlist[i].currentTime = 0;
+        }
     };
     
     Song.prototype.getSong = function() {
