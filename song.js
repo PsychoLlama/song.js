@@ -1,4 +1,4 @@
-(function(root) {
+var Song = (function() {
     'use strict';
     
     
@@ -25,7 +25,7 @@
         return destination;
     }
     
-    root.Song = function(playlist) {
+    Song = function(playlist) {
         this.repeat = false;
     
         this.playlist = [];
@@ -34,20 +34,20 @@
         this.songNumber = 0;
     };
     
-    root.Song.prototype.history = [];
+    Song.prototype.history = [];
     
     
-    root.Song.prototype.updateHistory = function(song) {
-        var last = root.Song.prototype.history.length - 1;
-        if (root.Song.prototype.history[last] === song) {
+    Song.prototype.updateHistory = function(song) {
+        var last = Song.prototype.history.length - 1;
+        if (Song.prototype.history[last] === song) {
             return;
             // If this song was just played, don't add it to history.
         } else {
-            root.Song.prototype.history.push(song);
+            Song.prototype.history.push(song);
         }
     };
     
-    root.Song.prototype.shuffle = function() {
+    Song.prototype.shuffle = function() {
         this.songNumber = 0;
     
         // randomly sort playlist array
@@ -60,7 +60,7 @@
         return this.playlist;
     };
     
-    root.Song.prototype.next = function() {
+    Song.prototype.next = function() {
         var lastSong = this.playlist.length - 1;
         var isLastSong = (this.songNumber === lastSong);
         var repeat = this.repeat;
@@ -81,7 +81,7 @@
         return this.getSong();
     };
     
-    root.Song.prototype.previous = function() {
+    Song.prototype.previous = function() {
         var aud = this.getSong();
         this.resetSongs();
     
@@ -99,14 +99,16 @@
         return this.getSong();
     };
     
-    root.Song.prototype.resetSongs = function() {
+    Song.prototype.resetSongs = function() {
         this.playlist.forEach(function(ele) {
             ele.pause();
             ele.currentTime = 0;
         });
     };
     
-    root.Song.prototype.getSong = function() {
+    Song.prototype.getSong = function() {
         return this.playlist[this.songNumber];
     };
-})(this);
+    
+    return Song;
+})();
