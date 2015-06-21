@@ -83,6 +83,7 @@ var Song = (function() {
         var aud = this.getSong();
     
         if (aud.currentTime > 5) {
+            this.resetSongs();
             return aud;
     
         } else if (this.songNumber === 0) {
