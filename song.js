@@ -1,7 +1,7 @@
 var Song = (function() {
     'use strict';
     
-    function buildAudio(title, src, img) {
+    function makeAudio(title, src, img) {
         var aud = document.createElement('audio');
     
         if (title) aud.setAttribute('data-title', title);
@@ -15,7 +15,7 @@ var Song = (function() {
         if (playlist.length === 0) return;
     
         for (var i = 0; i < playlist.length; i++) {
-            var audio = buildAudio(
+            var audio = makeAudio(
                 playlist[i].title,
                 playlist[i].src,
                 playlist[i].img);
@@ -33,8 +33,8 @@ var Song = (function() {
         this.songNumber = 0;
     };
     
-    Song.prototype.history = [];
     
+    Song.prototype.history = [];
     
     Song.prototype.updateHistory = function(song) {
         var last = Song.prototype.history.length - 1;
@@ -100,7 +100,7 @@ var Song = (function() {
     
     Song.prototype.resetSongs = function() {
         this.playlist.forEach(function(ele) {
-            ele.pause();
+            if (ele.pause) ele.pause();
             if (ele.currentTime) ele.currentTime = 0;
         });
     };
