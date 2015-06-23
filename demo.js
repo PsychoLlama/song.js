@@ -37,4 +37,4 @@ song.getSong().play();
         
         nowPlaying.innerHTML = art + title;
     };
-});
+})();
