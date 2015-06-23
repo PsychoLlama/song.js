@@ -113,10 +113,18 @@ var Song = (function() {
         // Pull the img src from the data attribute
         var src = audio.getAttribute('data-img');
         
-        var img = document.createElement('img');
-        img.src = src;
+        if (src) {
+            var img = document.createElement('img');
+            img.src = src;
+            
+            return img;
+        }
+    };
+    
+    Song.prototype.getTitle = function(audio) {
+        var title = audio.getAttribute('data-title');
         
-        return img;
+        if (title) return title;
     };
     
     return Song;
