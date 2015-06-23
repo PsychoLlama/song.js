@@ -24,3 +24,17 @@ song.repeat = true;
 song.shuffle();
 
 song.getSong().play();
+
+(function() {
+    var nowPlaying = document.getElementById('now-playing');
+    
+    song.onsongchange = function() {
+        var title = document.createElement('p');
+        
+        title.innerHTML = song.getTitle(song.getSong()) + '<br>';
+        
+        var art = song.getAlbum(song.getSong());
+        
+        nowPlaying.innerHTML = art + title;
+    };
+});
