@@ -55,6 +55,8 @@ var Song = (function() {
         });
         
         this.resetSongs();
+        if (this.onsongchange) this.onsongchange();
+        
         return this.playlist;
     };
     
@@ -76,6 +78,8 @@ var Song = (function() {
         }
     
         this.updateHistory(this.getSong());
+        if (this.onsongchange) this.onsongchange();
+        
         return this.getSong();
     };
     
@@ -95,6 +99,7 @@ var Song = (function() {
     
         this.resetSongs();
         this.updateHistory(this.getSong());
+        if (this.onsongchange) this.onsongchange();
         return this.getSong();
     };
     
@@ -126,6 +131,8 @@ var Song = (function() {
         
         if (title) return title;
     };
+    
+    Song.prototype.onsongchange;
     
     return Song;
 })();
