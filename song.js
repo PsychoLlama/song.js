@@ -109,5 +109,15 @@ var Song = (function() {
         return this.playlist[this.songNumber];
     };
     
+    Song.prototype.album = function() {
+        // Pull the img src from the data attribute
+        var src = this.getAttribute('data-img');
+        
+        var img = document.createElement('img');
+        img.src = src;
+        
+        return img;
+    };
+    
     return Song;
 })();
