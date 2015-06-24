@@ -53,3 +53,23 @@
   array.
 </p>
 
+<p>
+  Some features are still in development, such as:
+  <ul>
+    <li>
+      <code>playlistMgr.onsongchange</code>, which allows the user access to a
+      song change event.
+    </li>
+    
+    <li>
+      <code>playlistMgr.getAlbum(audioElem)</code>, which builds an 
+      <code>&lt;img&gt;</code> element and returns it using the source provided
+      in the inital song object.
+    </li>
+    
+    <li>
+      <code>playlistMgr.getTitle(audioElem)</code>, which returns the title
+      string used in the inital song object.
+    </li>
+  </ul>
+</p>
