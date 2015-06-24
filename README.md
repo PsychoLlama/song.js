@@ -73,3 +73,9 @@
     </li>
   </ul>
 </p>
+
+<p>
+  Well, that should get you started! Feel free to ask if you have questions,
+  and pull requests are always welcome!<br>
+  Thanks for making it this far!
+</p>
