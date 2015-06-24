@@ -29,14 +29,17 @@ window.onload = function() {
     (function() {
         var nowPlaying = document.getElementById('now-playing');
         
-        song.onsongchange = function() {
+        song.onsongchange = setNowPlaying();
+        function setNowPlaying() {
             var title = document.createElement('p');
             
             title.innerHTML = song.getTitle(song.getSong()) + '<br>';
             
             var art = song.getAlbum(song.getSong());
             
-            nowPlaying.innerHTML = art + title;
+            nowPlaying.innerHTML = '';
+            nowPlaying.appendChild(title);
+            nowPlaying.appendChild(art);
         };
     })();
 };
