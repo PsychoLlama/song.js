@@ -24,5 +24,12 @@
       img: 'URLtoImage'
     }];
   </pre></code>
+  <br>
+  We then give that to the playlist manager by calling
+  <code>var playlistMgr = new Song(playlist)</code>. This returns an object
+  with management tools built in.
+</p>
+
+<p>
   
 </p>
