@@ -41,5 +41,7 @@ window.onload = function() {
             nowPlaying.appendChild(title);
             nowPlaying.appendChild(art);
         };
+        
+        setNowPlaying();
     })();
 };
