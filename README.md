@@ -31,5 +31,14 @@
 </p>
 
 <p>
-  
+  When we passed <code>playlist</code> into the Song constructor, it
+  automatically built audio elements out of our playlist array. Our manager
+  keeps them in the <code>playlistMgr.playlist</code> array. Unless you need
+  to pull elements into the DOM (which is <i>not</i> required to play them),
+  you should not need to touch this list. It is there for convenience only.<br>
+  To grab the current song, use <code>playlistMgr.getSong()</code> and it will
+  return the &lt;audio&gt; element. To move between songs, use
+  <code>playlistMgr.next()</code> and <code>playlistMgr.previous()</code>.
+  These methods return the current song after their operation.<br>
+  You may set the <code>playlistMgr.repeat</code> boolean to suite your needs.
 </p>
