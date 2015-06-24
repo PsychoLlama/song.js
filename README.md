@@ -10,8 +10,8 @@
 <p>
   To begin, we start with an object array. This contains all songs we want
   inside the playlist. Each song object should hold a title, src and img src
-  string.<br>
-  <code><pre>
+  string.
+  <pre>
     var playlist = [{
     
       title: 'Song Title',
@@ -23,8 +23,7 @@
       src: 'URLtoSong',
       img: 'URLtoImage'
     }];
-  </pre></code>
-  <br>
+  </pre>
   We then give that to the playlist manager by calling
   <code>var playlistMgr = new Song(playlist)</code>. This returns an object
   with management tools built in.
@@ -76,6 +75,6 @@
 
 <p>
   Well, that should get you started! Feel free to ask if you have questions,
-  and pull requests are always welcome!<br>
-  Thanks for making it this far!
+  and pull requests are always welcome!
 </p>
+<p>Have fun out there!!</p>
