@@ -40,5 +40,16 @@
   return the &lt;audio&gt; element. To move between songs, use
   <code>playlistMgr.next()</code> and <code>playlistMgr.previous()</code>.
   These methods return the current song after their operation.<br>
-  You may set the <code>playlistMgr.repeat</code> boolean to suite your needs.
+  You may set the <code>playlistMgr.repeat</code> boolean to suit your needs.
 </p>
+
+<p>
+  Included in the manager is a <code>playlistMgr.shuffle()</code> method,
+  which randomly reorganizes the <code>playlistMgr.playlist</code> array.
+  It returns the shuffled array.<br>
+  Also included is the <code>playlistMgr.history</code> array, which holds
+  memory of every song played through the library. It is important to note
+  that even if you have seperate playlists, they all push to the same history
+  array.
+</p>
+
