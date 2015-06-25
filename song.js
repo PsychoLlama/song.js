@@ -87,22 +87,34 @@ var Song = (function() {
     
     Song.prototype.previous = function() {
         var aud = this.getSong();
-    
+        
         if (aud.currentTime > 5) {
             this.resetSongs();
             return aud;
-    
+        
         } else if (this.songNumber === 0) {
             this.songNumber = this.playlist.length - 1;
-    
+        
         } else if (this.songNumber > 0) {
             this.songNumber--;
         }
-    
+        
         this.resetSongs();
         this.updateHistory(this.getSong());
         if (this.onsongchange) this.onsongchange();
         return this.getSong();
+    };
+    
+    Song.prototype.skipTo = function(songNumber) {
+        if (songNumber) {
+            this.resetSongs();
+            this.songNumber = songNumber;
+            
+            this.updateHistory(this.getSong());
+            if (this.onsongchange) this.onsongchange();
+            
+            return this.getSong();
+        }
     };
     
     Song.prototype.resetSongs = function() {
