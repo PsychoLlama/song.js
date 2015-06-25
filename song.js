@@ -106,7 +106,11 @@ var Song = (function() {
     };
     
     Song.prototype.skipTo = function(songNumber) {
-        if (songNumber) {
+        if (songNumber >= this.playlist.length) return;
+        if (songNumber < 0) return;
+        
+        if (songNumber || songNumber === 0) {
+            
             this.resetSongs();
             this.songNumber = songNumber;
             
