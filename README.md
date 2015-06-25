@@ -61,12 +61,14 @@
     <li>
       <code>playlistMgr.getAlbum(audioElem)</code>, which builds an 
       <code>&lt;img&gt;</code> element and returns it using the source provided
-      in the inital song object.
+      in the inital song object. If no <code>&lt;audio&gt;</code> element is
+      passed, <code>getSong()</code> is used.
     </li>
     
     <li>
       <code>playlistMgr.getTitle(audioElem)</code>, which returns the title
-      string used in the inital song object.
+      string used in the inital song object. Once again, if no element is
+      passed, <code>getSong()</code> is used.
     </li>
   </ul>
 </p>
