@@ -11,19 +11,17 @@
   To begin, we start with an object array. This contains all songs we want
   inside the playlist. Each song object should hold a title, src and img src
   string.
-  <pre>
-    var playlist = [{
-    
-      title: 'Song Title',
-      src: 'URLtoSong',
-      img: 'URLtoImage'
-    }, {
-    
-      title: 'Second Song',
-      src: 'URLtoSong',
-      img: 'URLtoImage'
-    }];
-  </pre>
+  <pre>var playlist = [{
+
+  title: 'Song Title',
+  src: 'URLtoSong',
+  img: 'URLtoImage'
+}, {
+
+  title: 'Second Song',
+  src: 'URLtoSong',
+  img: 'URLtoImage'
+}];</pre>
   We then give that to the playlist manager by calling
   <code>var playlistMgr = new Song(playlist)</code>. This returns an object
   with management tools built in.
