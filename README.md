@@ -70,6 +70,11 @@
       string used in the inital song object. Once again, if no element is
       passed, <code>getSong()</code> is used.
     </li>
+    
+    <li>
+      <code>playlistMgr.skipTo(songNumber)</code>, which skips to the song at
+      the index number given. It returns the current song after the operation.
+    </li>
   </ul>
 </p>
 
