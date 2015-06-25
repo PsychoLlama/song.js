@@ -3,11 +3,11 @@ var Song = (function() {
     
     function makeAudio(title, src, img) {
         var aud = document.createElement('audio');
-    
+        
         if (title) aud.setAttribute('data-title', title);
         if (src) aud.src = src;
         if (img) aud.setAttribute('data-img', img);
-    
+        
         return aud;
     }
     
@@ -31,6 +31,8 @@ var Song = (function() {
         add(playlist, this.playlist);
     
         this.songNumber = 0;
+        
+        this.onsongchange;
     };
     
     
@@ -116,23 +118,32 @@ var Song = (function() {
     
     Song.prototype.getAlbum = function(audio) {
         // Pull the img src from the data attribute
-        var src = audio.getAttribute('data-img');
+        var src;
         
-        if (src) {
-            var img = document.createElement('img');
-            img.src = src;
-            
-            return img;
+        if (audio) {
+            src = audio.getAttribute('data-img');
+        } else {
+            src = this.getSong().getAttribute('data-img');
         }
+        
+        var img = document.createElement('img');
+        img.src = src;
+        
+        return img;
     };
     
     Song.prototype.getTitle = function(audio) {
-        var title = audio.getAttribute('data-title');
+        // pull the title string from the data attribute
+        var title;
+        
+        if (audio) {
+            title = audio.getAttribute('data-title');
+        } else {
+            title = this.getSong().getAttribute('data-title');
+        }
         
         if (title) return title;
     };
-    
-    Song.prototype.onsongchange;
     
     return Song;
 })();
