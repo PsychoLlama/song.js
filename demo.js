@@ -29,7 +29,6 @@ window.onload = function() {
     (function() {
         var nowPlaying = document.getElementById('now-playing');
         
-        song.onsongchange = setNowPlaying();
         function setNowPlaying() {
             var title = document.createElement('p');
             
@@ -40,7 +39,8 @@ window.onload = function() {
             nowPlaying.innerHTML = '';
             nowPlaying.appendChild(title);
             nowPlaying.appendChild(art);
-        };
+        }
+        song.onsongchange = setNowPlaying;
         
         setNowPlaying();
     })();
