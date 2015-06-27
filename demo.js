@@ -58,5 +58,5 @@ window.onload = function() {
         select.onchange = function(e) {
             // Get songNum and skipTo(num)
         };
-    });
+    })();
 };
