@@ -44,4 +44,19 @@ window.onload = function() {
         
         setNowPlaying();
     })();
+    
+    (function() {
+        var select = document.getElementById('song-list');
+        select.innerHTML = '';
+        
+        song.playlist.forEach(function(ele) {
+            var option = document.createElement('option');
+            option.innerHTML = ele.getAttribute('data-title');
+            select.appendChild(option);
+        })();
+        
+        select.onchange = function(e) {
+            // Get songNum and skipTo(num)
+        };
+    });
 };
