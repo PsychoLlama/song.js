@@ -53,7 +53,7 @@ window.onload = function() {
             var option = document.createElement('option');
             option.innerHTML = ele.getAttribute('data-title');
             select.appendChild(option);
-        })();
+        });
         
         select.onchange = function(e) {
             // Get songNum and skipTo(num)
