@@ -56,7 +56,8 @@ window.onload = function() {
         });
         
         select.onchange = function(e) {
-            // Get songNum and skipTo(num)
+            var select = e.target;
+            song.skipTo(select.selectedIndex).play();
         };
     })();
 };
