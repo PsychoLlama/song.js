@@ -23,8 +23,6 @@ var song = new Song(sampleData);
 song.repeat = true;
 song.shuffle();
 
-song.getSong().play();
-
 window.onload = function() {
     (function() {
         var nowPlaying = document.getElementById('now-playing');
