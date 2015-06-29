@@ -14,6 +14,19 @@
       <h1>Song.js</h1>
       <p>A JavaScript library for managing playlists</p>
     </header>
+    
+    <div class="doc" style='background-color: #2f875f;'>
+      <h1>Creating a playlist...</h1>
+      <p>To begin, we need to create a playist object.
+        Here's how:</p>
+      <pre><span class='token'>var</span> playlistMgr = <span class="token">new</span> Song(<span class="arg">playlist</span>);</pre>
+      <p>We'll format your playlist in a moment.
+        for now, let's have an overview. <code>Song</code> takes
+        your playlist data and creates <code>&lt;audio&gt;</code>
+        tags, pushing them into a playlist property.</p>
+        <pre>playlistMgr.playlist
+<span class="token">&gt;</span> [ &lt;audio&gt; &lt;audio&gt; <span class="token">...</span> ]</pre>
+    </div>
     <button onclick='song.getSong().pause()'>song.getSong().pause</button>
     <button onclick='song.getSong().play()'>song.getSong().play()</button>
     <br>
