@@ -6,6 +6,9 @@ body {
   font-family: helvetica, verdana, sans-serif;
   line-height: 1.7em;
 }
+p, pre {
+  max-width: 50rem;
+}
 h1 {
   margin: 0;
 }
@@ -30,10 +33,17 @@ header {
   background-color: #f8f8f8;
   padding: 20px;
 }
+
 .doc {
-  padding: 30px;
+  padding: 20px;
   color: #ffe8f0;
 }
+@media (min-width: 760px) {
+  .doc {
+    padding: 40px;
+  }
+}
+
 .token {
   color: #F87426;
 }
