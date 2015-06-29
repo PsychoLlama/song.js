@@ -4,14 +4,33 @@ body {
   margin: 0;
   color: #45413E;
   font-family: helvetica, verdana, sans-serif;
+  line-height: 1.7em;
 }
 h1 {
   margin: 0;
 }
-header p {
-  margin-bottom: 5px;
+pre {
+  margin: 0;
+  padding: 15px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.08);
+  border-radius: 5px;
+  font-family: courier, serif;
+}
+p:last-child {
+  margin-bottom: 0px;
 }
 header {
-  background-color: #ffb766;
+  background-color: #f8f8f8;
   padding: 20px;
+}
+.doc {
+  padding: 20px;
+  color: #ffe8f0;
+}
+.token {
+  color: #F87426;
+}
+.arg {
+  color: #47c1ff;
 }
