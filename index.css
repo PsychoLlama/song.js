@@ -9,14 +9,19 @@ body {
 h1 {
   margin: 0;
 }
+code, pre {
+  background-color: rgba(0, 0, 0, 0.08);
+  border-radius: 5px;
+  font-family: courier, serif;
+}
 pre {
   margin: 0;
   padding: 15px;
   color: white;
-  background-color: rgba(0, 0, 0, 0.08);
-  border-radius: 5px;
-  font-family: courier, serif;
   overflow: auto;
+}
+code {
+  padding: 2px 5px;
 }
 p:last-child {
   margin-bottom: 0px;
