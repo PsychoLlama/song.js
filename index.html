@@ -5,7 +5,7 @@
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link type='text/css' rel='stylesheet'
-      href='//rawgit.com/PsychoLlama/song.js/master/index.css'>
+      href='index.css'>
     <script src='//rawgit.com/PsychoLlama/song.js/master/song.js'></script>
     <script src='//rawgit.com/PsychoLlama/song.js/master/demo.js'></script>
   </head>
@@ -16,8 +16,8 @@
       <p>A JavaScript library for managing playlists</p>
     </header>
     
-    <div class="doc" style='background-color: #2f875f;'>
-      <h1>Creating a playlist...</h1>
+    <div class="doc green">
+      <h2>Creating a playlist...</h2>
       <p>To begin, we need to create a playist object.
         Here's how:</p>
       <pre><span class='token'>var</span> playlistMgr = <span class="token">new</span> Song(<span class="arg">playlist</span>);</pre>
@@ -28,6 +28,28 @@
         <pre>playlistMgr.playlist
 <span class="token">&gt;</span> [ &lt;audio&gt; &lt;audio&gt; <span class="token">...</span> ]</pre>
     </div>
+    
+    <div class="doc brown">
+      <h2>Formatting the playlist</h2>
+      <p>
+        The Song constructor takes in a list of songs as an object
+        array. Each object represents a song.
+      </p>
+      <pre>[{
+  title: "<span class="arg">title string</span>",
+  src: "<span class="arg">URL string</span>",
+  img: "<span class="arg">URL string</span>"
+}, {
+  title: "<span class="arg">Second song</span>",
+  src: "<span class="arg">URL</span>",
+  img: "<span class="arg">URL</span>"
+}]</pre>
+      <p>
+        A src property is required in each song object. All
+        other properties are optional.
+      </p>
+    </div>
+    
     <button onclick='song.getSong().pause()'>song.getSong().pause</button>
     <button onclick='song.getSong().play()'>song.getSong().play()</button>
     <br>
