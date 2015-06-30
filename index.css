@@ -5,12 +5,14 @@ body {
   color: #45413E;
   font-family: helvetica, verdana, sans-serif;
   line-height: 1.7em;
+  background-color: #f8f8f8;
 }
 p, pre {
   max-width: 50rem;
 }
-h1 {
+h1, h2 {
   margin: 0;
+  letter-spacing: 1px;
 }
 code, pre {
   background-color: rgba(0, 0, 0, 0.08);
@@ -30,7 +32,6 @@ p:last-child {
   margin-bottom: 0px;
 }
 header {
-  background-color: #f8f8f8;
   padding: 20px;
 }
 
@@ -42,6 +43,13 @@ header {
   .doc {
     padding: 40px;
   }
+}
+
+.green {
+  background-color: #2f875f;
+}
+.brown {
+  background-color: #A7895E;
 }
 
 .token {
