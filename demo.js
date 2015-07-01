@@ -44,18 +44,32 @@ window.onload = function() {
     })();
     
     (function() {
-        var select = document.getElementById('song-list');
-        select.innerHTML = '';
-        
-        song.playlist.forEach(function(ele) {
-            var option = document.createElement('option');
-            option.innerHTML = ele.getAttribute('data-title');
-            select.appendChild(option);
+      var makeTag, playlist, skipToSong;
+    
+      makeTag = function(tag) {
+        return document.createElement(tag);
+      };
+    
+      skipToSong = function(songNum) {
+        return song.skipTo(songNum);
+      };
+    
+      playlist = document.querySelector('#playlist');
+    
+      song.playlist.forEach(function(tag, index) {
+        var div, h1;
+        div = makeTag('div');
+        div.className = 'playlist';
+        div.addEventListener('click', function() {
+          return skipToSong(index);
         });
-        
-        select.onchange = function(e) {
-            var select = e.target;
-            song.skipTo(select.selectedIndex).play();
-        };
-    })();
+        h1 = makeTag('h2');
+        h1.innerHTML = song.getTitle(tag);
+        div.appendChild(h1);
+        playlist.appendChild(div);
+        return div.setAttribute('data-songIndex', index);
+      });
+    
+    }).call(this);
+
 };
