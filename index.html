@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <title>Launch Song.js</title>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link type='text/css' rel='stylesheet'
+      href='index.css'>
+    <script src='song.js'></script>
+    <script src='demo.js'></script>
+  </head>
+  
+  <body>
+    <header>
+      <h1>Song.js</h1>
+      <p>A JavaScript library for managing playlists</p>
+    </header>
+    
+    <div class="doc green">
+      <h2>Creating a playlist...</h2>
+      <p>To begin, we need to create a playist object.
+        Here's how:</p>
+      <pre><span class='token'>var</span> playlistMgr = <span class="token">new</span> Song(<span class="arg">playlist</span>);</pre>
+      <p>We'll format your playlist in a moment.
+        for now, let's have an overview. <code>Song</code> takes
+        your playlist data and creates <code>&lt;audio&gt;</code>
+        tags, pushing them into a playlist property.</p>
+        <pre>playlistMgr.playlist
+<span class="token">&gt;</span> [ &lt;audio&gt; &lt;audio&gt; <span class="token">...</span> ]</pre>
+    </div>
+    
+    <div class="doc brown">
+      <h2>Formatting the playlist</h2>
+      <p>
+        The Song constructor takes in a list of songs as an object
+        array. Each object represents a song.
+      </p>
+      <pre>[{
+  title: "<span class="arg">title string</span>",
+  src: "<span class="arg">URL string</span>",
+  img: "<span class="arg">URL string</span>"
+}, {
+  title: "<span class="arg">Second song</span>",
+  src: "<span class="arg">URL</span>",
+  img: "<span class="arg">URL</span>"
+}]</pre>
+      <p>
+        A src property is required in each song object. All
+        other properties are optional.
+      </p>
+    </div>
+    
+    <div id="playlist"></div>
+    
+    <button onclick='song.getSong().pause()'>song.getSong().pause</button>
+    <button onclick='song.getSong().play()'>song.getSong().play()</button>
+    <br>
+    <button onclick='song.next().play()'>song.next().play()</button>
+    <button onclick='song.previous().play()'>song.previous().play()</button>
+    <br>
+    <button onclick='song.shuffle()[0].play()'>song.shuffle()[0].play()</button>
+    
+    <div id='now-playing'>
+      
+    </div>
+  </body>
+</html>
