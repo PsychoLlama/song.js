@@ -60,14 +60,13 @@ window.onload = function() {
         var div, h1;
         div = makeTag('div');
         div.className = 'playlist';
-        div.addEventListener('click', function() {
-          return skipToSong(index);
-        });
         h1 = makeTag('h2');
         h1.innerHTML = song.getTitle(tag);
         div.appendChild(h1);
         playlist.appendChild(div);
-        return div.setAttribute('data-songIndex', index);
+        return div.addEventListener('click', function() {
+          return skipToSong(index);
+        });
       });
     
     }).call(this);
