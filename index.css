@@ -35,6 +35,14 @@ header {
   padding: 20px;
 }
 
+.playlist {
+  cursor: pointer;
+  padding: 20px;
+  background-color: #1F2021;
+  color: #F8F8F8;
+  border-bottom: 1px solid #1D1B1B;
+  border-top: 1px solid #252527;
+}
 .doc {
   padding: 20px;
   color: #ffe8f0;
