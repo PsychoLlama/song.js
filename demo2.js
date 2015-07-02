@@ -28,4 +28,45 @@
 
   song.shuffle();
 
+  window.onload = function() {
+    var makeTag;
+    makeTag = function(tag) {
+      return document.createElement(tag);
+    };
+    (function() {
+      var nowPlaying, setNowPlaying;
+      nowPlaying = document.getElementById('now-playing');
+      setNowPlaying = function() {
+        var art, title;
+        title = makeTag('p');
+        title.innerHTML = song.getTitle(song.getSong()) + '<br>';
+        art = song.getAlbum(song.getSong());
+        nowPlaying.innerHTML = '';
+        nowPlaying.appendChild(title);
+        return nowPlaying.appendChild(art);
+      };
+      song.onsongchange = setNowPlaying;
+      return setNowPlaying();
+    })();
+    return (function() {
+      var playlist, skipToSong;
+      skipToSong = function(songNum) {
+        return song.skipTo(songNum);
+      };
+      playlist = document.getElementById('playlist');
+      return song.playlist.forEach(function(tag, index) {
+        var div, h2;
+        div = makeTag('div');
+        div.className = 'playlist';
+        h2 = makeTag('h2');
+        h2.innerHTML = song.getTitle(tag);
+        div.appendChild(h2);
+        playlist.appendChild(div);
+        return div.addEventListener('click', function() {
+          return skipToSong(index);
+        });
+      });
+    })();
+  };
+
 }).call(this);
