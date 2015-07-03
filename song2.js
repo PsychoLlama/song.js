@@ -66,4 +66,27 @@
     return this.playlist;
   };
 
+  root.Song.next = function() {
+    var finalize, isLastSong, lastSong, repeat;
+    lastSong = this.playlist.length - 1;
+    isLastSong = this.songNumber === lastSong;
+    repeat = this.repeat;
+    if (isLastSong && repeat) {
+      this.songNumber = 0;
+      return finalize();
+    } else if (isLastSong && !repeat) {
+      return void 0;
+    } else if (this.songNumber < lastSong) {
+      this.songNumber;
+      return finalize();
+    }
+    return finalize = function() {
+      this.updateHistory(this.getSong());
+      try {
+        onsongchange();
+      } catch (_error) {}
+      return this.getSong();
+    };
+  };
+
 }).call(this);

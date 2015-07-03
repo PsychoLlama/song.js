@@ -51,3 +51,24 @@ root.Song.prototype.shuffle = ->
 	try this.onsongchange()
 
 	this.playlist
+
+root.Song.next = ->
+	lastSong = this.playlist.length - 1
+	isLastSong = this.songNumber is lastSong
+	repeat = this.repeat
+
+	if isLastSong and repeat
+		this.songNumber = 0
+		return finalize()
+
+	else if isLastSong and not repeat
+		return undefined
+
+	else if this.songNumber < lastSong
+		this.songNumber
+		return finalize()
+
+	finalize = ->
+		this.updateHistory this.getSong()
+		try onsongchange()
+		this.getSong()
