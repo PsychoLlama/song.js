@@ -89,4 +89,27 @@
     };
   };
 
+  root.Song.previous = function() {
+    var aud, finalize;
+    aud = this.getSong();
+    if (aud.currentTime < 5) {
+      this.resetSongs();
+      return aud;
+    } else if (this.songNumber === 0) {
+      this.songNumber = this.playlist.length - 1;
+      return finalize();
+    } else if (this.songNumber > 0) {
+      this.songNumber--;
+      return finalize();
+    }
+    return finalize = function() {
+      this.resetSongs();
+      this.updateHistory(this.getSong());
+      try {
+        this.onsongchange();
+      } catch (_error) {}
+      return this.getSong();
+    };
+  };
+
 }).call(this);

@@ -72,3 +72,23 @@ root.Song.next = ->
 		this.updateHistory this.getSong()
 		try onsongchange()
 		this.getSong()
+root.Song.previous = ->
+	aud = this.getSong()
+
+	if aud.currentTime < 5
+		this.resetSongs()
+		return aud
+
+	else if this.songNumber is 0
+		this.songNumber = this.playlist.length - 1
+		return finalize()
+
+	else if this.songNumber > 0
+		this.songNumber--
+		return finalize()
+
+	finalize = ->
+		this.resetSongs()
+		this.updateHistory this.getSong()
+		try this.onsongchange()
+		return this.getSong()
