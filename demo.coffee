@@ -39,7 +39,7 @@ window.onload = ->
 
 		song.onsongchange = setNowPlaying
 		setNowPlaying()
-		)()
+	)()
 	(->
 		skipToSong = (songNum) ->
 			song.skipTo songNum
@@ -58,4 +58,4 @@ window.onload = ->
 
 			div.addEventListener 'click', ->
 				skipToSong(index)
-		)()
+	)()
