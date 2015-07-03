@@ -29,6 +29,7 @@ root.Song = (playlist) ->
 
 	this.songNumber = 0
 	this.onsongchange
+	return this
 
 root.Song.prototype.history = []
 
@@ -91,4 +92,16 @@ root.Song.previous = ->
 		this.resetSongs()
 		this.updateHistory this.getSong()
 		try this.onsongchange()
+		return this.getSong()
+root.Song.prototype.skipTo = (songNum) ->
+	return undefined if songNum >= this.playlist.length
+	return undefined if songNum < 0
+	
+	if songNum or songNum is 0
+		this.resetSongs
+		this.songNumber = songNum
+		
+		this.updateHistory this.getSong()
+		try this.onsongchange()
+		
 		return this.getSong()
