@@ -125,3 +125,10 @@ root.Song.prototype.getAlbum = (audio) ->
 	img.src = src
 	
 	return img
+
+root.Song.prototype.getTitle = (audio) ->
+	if not audio
+		audio = this.getSong()
+	
+	title = audio.getAttribute 'data-title'
+	return title

@@ -158,4 +158,13 @@
     return img;
   };
 
+  root.Song.prototype.getTitle = function(audio) {
+    var title;
+    if (!audio) {
+      audio = this.getSong();
+    }
+    title = audio.getAttribute('data-title');
+    return title;
+  };
+
 }).call(this);
