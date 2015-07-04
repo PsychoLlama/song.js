@@ -110,8 +110,9 @@ root.Song.prototype.skipTo = (songNum) ->
 
 root.Song.prototype.resetSongs = ->
 	for song in this.playlist
-		song.pause()
-		song.currentTime = 0
+		try
+			song.pause()
+			song.currentTime = 0
 
 root.Song.prototype.getSong = ->
 	return this.playlist[this.songNumber]

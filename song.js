@@ -137,8 +137,10 @@
     _results = [];
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       song = _ref[_i];
-      song.pause();
-      _results.push(song.currentTime = 0);
+      try {
+        song.pause();
+        _results.push(song.currentTime = 0);
+      } catch (_error) {}
     }
     return _results;
   };
