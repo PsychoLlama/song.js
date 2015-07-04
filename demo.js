@@ -67,7 +67,7 @@
         });
       });
     })();
-    return window.onload = function() {
+    window.onload = function() {
       var next, pause, play, previous, shuffle;
       pause = document.getElementById('pause');
       play = document.getElementById('play');
@@ -90,6 +90,7 @@
         return song.shuffle()[0].play();
       };
     };
+    return void 0;
   };
 
 }).call(this);

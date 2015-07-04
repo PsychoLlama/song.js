@@ -72,3 +72,5 @@ window.onload = ->
 		next.onclick = -> song.getSong().next().play()
 		previous.onclick = -> song.getSong().previous().play()
 		shuffle.onclick = -> song.shuffle()[0].play()
+		
+	return undefined
