@@ -59,3 +59,16 @@ window.onload = ->
 			div.addEventListener 'click', ->
 				skipToSong(index)
 	)()
+	
+	window.onload = ->
+		pause = document.getElementById 'pause'
+		play = document.getElementById 'play'
+		next = document.getElementById 'next'
+		previous = document.getElementById 'previous'
+		shuffle = document.getElementById 'shuffle'
+		
+		pause.onclick = -> song.getSong().pause()
+		play.onclick = -> song.getSong().play()
+		next.onclick = -> song.getSong().next().play()
+		previous.onclick = -> song.getSong().previous().play()
+		shuffle.onclick = -> song.shuffle()[0].play()
