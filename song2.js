@@ -143,4 +143,19 @@
     return _results;
   };
 
+  root.Song.prototype.getSong = function() {
+    return this.playlist[this.songNumber];
+  };
+
+  root.Song.prototype.getAlbum = function(audio) {
+    var img, src;
+    if (!audio) {
+      audio = this.getSong();
+    }
+    src = audio.getAttribute('data-img');
+    img = document.createElement('img');
+    img.src = src;
+    return img;
+  };
+
 }).call(this);

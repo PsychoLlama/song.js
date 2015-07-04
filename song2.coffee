@@ -112,4 +112,16 @@ root.Song.prototype.resetSongs = ->
 	for song in this.playlist
 		song.pause()
 		song.currentTime = 0
+
+root.Song.prototype.getSong = ->
+	return this.playlist[this.songNumber]
+
+root.Song.prototype.getAlbum = (audio) ->
+	if not audio
+		audio = this.getSong()
+		
+	src = audio.getAttribute 'data-img'
+	img = document.createElement 'img'
+	img.src = src
 	
+	return img
