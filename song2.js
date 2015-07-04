@@ -131,4 +131,16 @@
     }
   };
 
+  root.Song.prototype.resetSongs = function() {
+    var song, _i, _len, _ref, _results;
+    _ref = this.playlist;
+    _results = [];
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      song = _ref[_i];
+      song.pause();
+      _results.push(song.currentTime = 0);
+    }
+    return _results;
+  };
+
 }).call(this);

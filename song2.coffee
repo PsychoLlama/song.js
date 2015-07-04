@@ -73,6 +73,7 @@ root.Song.next = ->
 		this.updateHistory this.getSong()
 		try onsongchange()
 		this.getSong()
+
 root.Song.previous = ->
 	aud = this.getSong()
 
@@ -93,6 +94,7 @@ root.Song.previous = ->
 		this.updateHistory this.getSong()
 		try this.onsongchange()
 		return this.getSong()
+
 root.Song.prototype.skipTo = (songNum) ->
 	return undefined if songNum >= this.playlist.length
 	return undefined if songNum < 0
@@ -105,3 +107,9 @@ root.Song.prototype.skipTo = (songNum) ->
 		try this.onsongchange()
 		
 		return this.getSong()
+
+root.Song.prototype.resetSongs = ->
+	for song in this.playlist
+		song.pause()
+		song.currentTime = 0
+	
