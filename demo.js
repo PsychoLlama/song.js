@@ -29,7 +29,7 @@
   song.shuffle();
 
   window.onload = function() {
-    var makeTag;
+    var makeTag, next, pause, play, previous, shuffle;
     makeTag = function(tag) {
       return document.createElement(tag);
     };
@@ -67,30 +67,26 @@
         });
       });
     })();
-    window.onload = function() {
-      var next, pause, play, previous, shuffle;
-      pause = document.getElementById('pause');
-      play = document.getElementById('play');
-      next = document.getElementById('next');
-      previous = document.getElementById('previous');
-      shuffle = document.getElementById('shuffle');
-      pause.onclick = function() {
-        return song.getSong().pause();
-      };
-      play.onclick = function() {
-        return song.getSong().play();
-      };
-      next.onclick = function() {
-        return song.getSong().next().play();
-      };
-      previous.onclick = function() {
-        return song.getSong().previous().play();
-      };
-      return shuffle.onclick = function() {
-        return song.shuffle()[0].play();
-      };
+    pause = document.getElementById('pause');
+    play = document.getElementById('play');
+    next = document.getElementById('next');
+    previous = document.getElementById('previous');
+    shuffle = document.getElementById('shuffle');
+    pause.onclick = function() {
+      return song.getSong().pause();
     };
-    return void 0;
+    play.onclick = function() {
+      return song.getSong().play();
+    };
+    next.onclick = function() {
+      return song.getSong().next().play();
+    };
+    previous.onclick = function() {
+      return song.getSong().previous().play();
+    };
+    return shuffle.onclick = function() {
+      return song.shuffle()[0].play();
+    };
   };
 
 }).call(this);
