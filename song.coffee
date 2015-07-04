@@ -18,7 +18,7 @@ add = (playlist, destination) ->
 		song.src,
 		song.img
 
-		destination.push aud
+		destination.push audio
 	return destination
 
 root.Song = (playlist) ->

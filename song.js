@@ -28,7 +28,7 @@
     for (_i = 0, _len = playlist.length; _i < _len; _i++) {
       song = playlist[_i];
       audio = makeAudio(song.title, song.src, song.img);
-      destination.push(aud);
+      destination.push(audio);
     }
     return destination;
   };
