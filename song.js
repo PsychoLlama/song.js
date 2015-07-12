@@ -68,26 +68,17 @@
   };
 
   root.Song.next = function() {
-    var finalize, isLastSong, lastSong, repeat;
+    var isLastSong, lastSong, repeat;
     lastSong = this.playlist.length - 1;
     isLastSong = this.songNumber === lastSong;
     repeat = this.repeat;
     if (isLastSong && repeat) {
-      this.songNumber = 0;
-      return finalize();
+      return this.prototype.skipTo(0);
     } else if (isLastSong && !repeat) {
       return void 0;
     } else if (this.songNumber < lastSong) {
-      this.songNumber;
-      return finalize();
+      return this.prototype.skipTo(this.songNumber + 1);
     }
-    return finalize = function() {
-      this.updateHistory(this.getSong());
-      try {
-        onsongchange();
-      } catch (_error) {}
-      return this.getSong();
-    };
   };
 
   root.Song.previous = function() {

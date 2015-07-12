@@ -59,20 +59,13 @@ root.Song.next = ->
 	repeat = this.repeat
 
 	if isLastSong and repeat
-		this.songNumber = 0
-		return finalize()
+		this.prototype.skipTo(0)
 
 	else if isLastSong and not repeat
 		return undefined
 
 	else if this.songNumber < lastSong
-		this.songNumber
-		return finalize()
-
-	finalize = ->
-		this.updateHistory this.getSong()
-		try onsongchange()
-		this.getSong()
+		this.prototype.skipTo (this.songNumber + 1)
 
 root.Song.previous = ->
 	aud = this.getSong()
