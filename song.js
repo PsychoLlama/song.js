@@ -82,26 +82,16 @@
   };
 
   root.Song.previous = function() {
-    var aud, finalize;
-    aud = this.getSong();
-    if (aud.currentTime < 5) {
+    var audio;
+    audio = this.getSong();
+    if (audio.currentTime < 5) {
       this.resetSongs();
-      return aud;
+      return audio;
     } else if (this.songNumber === 0) {
-      this.songNumber = this.playlist.length - 1;
-      return finalize();
+      return this.prototype.skipTo(this.playlist.length - 1);
     } else if (this.songNumber > 0) {
-      this.songNumber--;
-      return finalize();
+      return this.prototype.skipTo(this.songNumber - 1);
     }
-    return finalize = function() {
-      this.resetSongs();
-      this.updateHistory(this.getSong());
-      try {
-        this.onsongchange();
-      } catch (_error) {}
-      return this.getSong();
-    };
   };
 
   root.Song.prototype.skipTo = function(songNum) {

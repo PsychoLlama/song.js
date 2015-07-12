@@ -68,25 +68,17 @@ root.Song.next = ->
 		this.prototype.skipTo (this.songNumber + 1)
 
 root.Song.previous = ->
-	aud = this.getSong()
+	audio = this.getSong()
 
-	if aud.currentTime < 5
+	if audio.currentTime < 5
 		this.resetSongs()
-		return aud
+		return audio
 
 	else if this.songNumber is 0
-		this.songNumber = this.playlist.length - 1
-		return finalize()
+		this.prototype.skipTo (this.playlist.length - 1)
 
 	else if this.songNumber > 0
-		this.songNumber--
-		return finalize()
-
-	finalize = ->
-		this.resetSongs()
-		this.updateHistory this.getSong()
-		try this.onsongchange()
-		return this.getSong()
+		this.prototype.skipTo (this.songNumber - 1)
 
 root.Song.prototype.skipTo = (songNum) ->
 	return undefined if songNum >= this.playlist.length
