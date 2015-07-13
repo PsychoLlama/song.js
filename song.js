@@ -69,7 +69,7 @@
       return (Math.floor(Math.random() * 3)) - 1;
     });
     this.resetSongs();
-    this.fireSongEvent(this);
+    fireSongEvent(this);
     return this.playlist;
   };
 
@@ -111,7 +111,7 @@
       this.resetSongs;
       this.songNumber = songNum;
       this.updateHistory(this.getSong());
-      this.fireSongEvent(this);
+      fireSongEvent(this);
       return this.getSong();
     }
   };

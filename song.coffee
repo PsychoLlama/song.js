@@ -53,7 +53,7 @@ root.Song.prototype.shuffle = ->
 		(Math.floor Math.random() * 3) - 1
 
 	this.resetSongs()
-	this.fireSongEvent(this)
+	fireSongEvent(this)
 
 	this.playlist
 
@@ -93,7 +93,7 @@ root.Song.prototype.skipTo = (songNum) ->
 		this.songNumber = songNum
 		
 		this.updateHistory this.getSong()
-		this.fireSongEvent(this)
+		fireSongEvent(this)
 		
 		return this.getSong()
 
