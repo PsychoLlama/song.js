@@ -80,10 +80,10 @@
       return song.getSong().play();
     };
     next.onclick = function() {
-      return song.getSong().next().play();
+      return song.next().play();
     };
     previous.onclick = function() {
-      return song.getSong().previous().play();
+      return song.previous().play();
     };
     return shuffle.onclick = function() {
       return song.shuffle()[0].play();

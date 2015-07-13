@@ -68,6 +68,6 @@ window.onload = ->
 	
 	pause.onclick = -> song.getSong().pause()
 	play.onclick = -> song.getSong().play()
-	next.onclick = -> song.getSong().next().play()
-	previous.onclick = -> song.getSong().previous().play()
+	next.onclick = -> song.next().play()
+	previous.onclick = -> song.previous().play()
 	shuffle.onclick = -> song.shuffle()[0].play()
