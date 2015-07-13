@@ -28,7 +28,7 @@ root.Song = (playlist) ->
 	add playlist, this.playlist
 
 	this.songNumber = 0
-	this.onsongchange
+	this.songChange = []
 	return this
 
 root.Song.prototype.history = []
@@ -49,11 +49,12 @@ root.Song.prototype.shuffle = ->
 		(Math.floor Math.random() * 3) - 1
 
 	this.resetSongs()
-	try this.onsongchange()
+	try this.songChange.forEach (callback) ->
+		callback this.getSong();
 
 	this.playlist
 
-root.Song.next = ->
+root.Song.prototype.next = ->
 	lastSong = this.playlist.length - 1
 	isLastSong = this.songNumber is lastSong
 	repeat = this.repeat
@@ -67,7 +68,7 @@ root.Song.next = ->
 	else if this.songNumber < lastSong
 		this.prototype.skipTo (this.songNumber + 1)
 
-root.Song.previous = ->
+root.Song.prototype.previous = ->
 	audio = this.getSong()
 
 	if audio.currentTime < 5
@@ -89,7 +90,8 @@ root.Song.prototype.skipTo = (songNum) ->
 		this.songNumber = songNum
 		
 		this.updateHistory this.getSong()
-		try this.onsongchange()
+		try this.songChange.forEach (callback) ->
+			callback this.getSong()
 		
 		return this.getSong()
 

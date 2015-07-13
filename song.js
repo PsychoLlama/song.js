@@ -38,7 +38,7 @@
     this.playlist = [];
     add(playlist, this.playlist);
     this.songNumber = 0;
-    this.onsongchange;
+    this.songChange = [];
     return this;
   };
 
@@ -62,12 +62,14 @@
     });
     this.resetSongs();
     try {
-      this.onsongchange();
+      this.songChange.forEach(function(callback) {
+        return callback(this.getSong());
+      });
     } catch (_error) {}
     return this.playlist;
   };
 
-  root.Song.next = function() {
+  root.Song.prototype.next = function() {
     var isLastSong, lastSong, repeat;
     lastSong = this.playlist.length - 1;
     isLastSong = this.songNumber === lastSong;
@@ -81,7 +83,7 @@
     }
   };
 
-  root.Song.previous = function() {
+  root.Song.prototype.previous = function() {
     var audio;
     audio = this.getSong();
     if (audio.currentTime < 5) {
@@ -106,7 +108,9 @@
       this.songNumber = songNum;
       this.updateHistory(this.getSong());
       try {
-        this.onsongchange();
+        this.songChange.forEach(function(callback) {
+          return callback(this.getSong());
+        });
       } catch (_error) {}
       return this.getSong();
     }
