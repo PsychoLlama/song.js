@@ -39,13 +39,14 @@
       setNowPlaying = function() {
         var art, title;
         title = makeTag('p');
-        title.innerHTML = song.getTitle(song.getSong()) + '<br>';
-        art = song.getAlbum(song.getSong());
+        title.innerHTML = song.getTitle();
+        title.innerHTML += '<br>';
+        art = song.getAlbum();
         nowPlaying.innerHTML = '';
         nowPlaying.appendChild(title);
         return nowPlaying.appendChild(art);
       };
-      song.onsongchange = setNowPlaying;
+      song.songChange.push(setNowPlaying);
       return setNowPlaying();
     })();
     (function() {
