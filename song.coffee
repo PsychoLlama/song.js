@@ -21,6 +21,10 @@ add = (playlist, destination) ->
 		destination.push audio
 	return destination
 
+fireSongEvent = (playlist) ->
+	try playlist.songChange.forEach (callback) ->
+		callback playlist.getSong()
+
 root.Song = (playlist) ->
 	this.repeat = false
 
@@ -49,8 +53,7 @@ root.Song.prototype.shuffle = ->
 		(Math.floor Math.random() * 3) - 1
 
 	this.resetSongs()
-	try this.songChange.forEach (callback) ->
-		callback this.getSong();
+	this.fireSongEvent(this)
 
 	this.playlist
 
@@ -90,8 +93,7 @@ root.Song.prototype.skipTo = (songNum) ->
 		this.songNumber = songNum
 		
 		this.updateHistory this.getSong()
-		try this.songChange.forEach (callback) ->
-			callback this.getSong()
+		this.fireSongEvent(this)
 		
 		return this.getSong()
 
