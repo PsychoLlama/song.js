@@ -22,53 +22,42 @@ song = new Song sampleData
 song.repeat = true
 song.shuffle()
 
-makeTag = (tag) -> document.createElement(tag)
-(->
-	nowPlaying = document.getElementById 'now-playing'
-
-	setNowPlaying = ->
-		title = makeTag 'p'
-		title.innerHTML = song.getTitle()
-		title.innerHTML += '<br>'
-
-		art = song.getAlbum()
-
-		nowPlaying.innerHTML = ''
-		nowPlaying.appendChild title
-		nowPlaying.appendChild art
-
-	song.songChange.push setNowPlaying
-	setNowPlaying()
-)()
-(->
-	skipToSong = (songNum) ->
-		song.skipTo songNum
-
-	playlist = document.getElementById 'playlist'
-
-	song.playlist.forEach (tag, index) ->
-		div = makeTag 'div'
-		div.className = 'playlist'
-
-		h2 = makeTag 'h2'
-		h2.innerHTML = song.getTitle(tag)
-
-		div.appendChild h2
-		playlist.appendChild div
-
-		div.addEventListener 'click', ->
-			skipToSong(index)
-)()
-
 window.onload = ->
-	pause = document.getElementById 'pause'
-	play = document.getElementById 'play'
-	next = document.getElementById 'next'
-	previous = document.getElementById 'previous'
-	shuffle = document.getElementById 'shuffle'
+	makeTag = (tag) -> document.createElement(tag)
+	(->
+		nowPlaying = $ '#now-playling'
+
+		setNowPlaying = ->
+			title = $('<p>' + song.getTitle() + '</p>').append $ '<br>'
+
+			art = $ song.getAlbum()
+
+			nowPlaying.text ''
+			nowPlaying.append title, art
+
+		song.songChange.push setNowPlaying
+		setNowPlaying()
+	)()
+	(->
+		skipToSong = (songNum) ->
+			song.skipTo songNum
+
+		playlist = $ '#playlist'
+
+		$(song.playlist).each (tag, index) ->
+			div = $('<div>').addClass('playlist')
+
+			h2 = $('<h2>').text( song.getTitle(tag) )
+
+			div.append h2
+			playlist.append div
+
+			div.on 'click', ->
+				skipToSong(index)
+	)()
 	
-	pause.onclick = -> song.getSong().pause()
-	play.onclick = -> song.getSong().play()
-	next.onclick = -> song.next().play()
-	previous.onclick = -> song.previous().play()
-	shuffle.onclick = -> song.shuffle()[0].play()
+	$('#pause').onclick = -> song.getSong().pause()
+	$('#play').onclick = -> song.getSong().play()
+	$('#next').onclick = -> song.next().play()
+	$('#previous').onclick = -> song.previous().play()
+	$('#shuffle').onclick = -> song.shuffle()[0].play()
