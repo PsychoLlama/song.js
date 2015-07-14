@@ -22,44 +22,45 @@ song = new Song sampleData
 song.repeat = true
 song.shuffle()
 
+makeTag = (tag) -> document.createElement(tag)
+(->
+	nowPlaying = document.getElementById 'now-playing'
+
+	setNowPlaying = ->
+		title = makeTag 'p'
+		title.innerHTML = song.getTitle()
+		title.innerHTML += '<br>'
+
+		art = song.getAlbum()
+
+		nowPlaying.innerHTML = ''
+		nowPlaying.appendChild title
+		nowPlaying.appendChild art
+
+	song.songChange.push setNowPlaying
+	setNowPlaying()
+)()
+(->
+	skipToSong = (songNum) ->
+		song.skipTo songNum
+
+	playlist = document.getElementById 'playlist'
+
+	song.playlist.forEach (tag, index) ->
+		div = makeTag 'div'
+		div.className = 'playlist'
+
+		h2 = makeTag 'h2'
+		h2.innerHTML = song.getTitle(tag)
+
+		div.appendChild h2
+		playlist.appendChild div
+
+		div.addEventListener 'click', ->
+			skipToSong(index)
+)()
+
 window.onload = ->
-	makeTag = (tag) -> document.createElement(tag)
-	(->
-		nowPlaying = document.getElementById 'now-playing'
-
-		setNowPlaying = ->
-			title = makeTag 'p'
-			title.innerHTML = song.getTitle()
-			title.innerHTML += '<br>'
-
-			art = song.getAlbum()
-
-			nowPlaying.innerHTML = ''
-			nowPlaying.appendChild title
-			nowPlaying.appendChild art
-
-		song.songChange.push setNowPlaying
-		setNowPlaying()
-	)()
-	(->
-		skipToSong = (songNum) ->
-			song.skipTo songNum
-
-		playlist = document.getElementById 'playlist'
-
-		song.playlist.forEach (tag, index) ->
-			div = makeTag 'div'
-			div.className = 'playlist'
-
-			h2 = makeTag 'h2'
-			h2.innerHTML = song.getTitle(tag)
-
-			div.appendChild h2
-			playlist.appendChild div
-
-			div.addEventListener 'click', ->
-				skipToSong(index)
-	)()
 	pause = document.getElementById 'pause'
 	play = document.getElementById 'play'
 	next = document.getElementById 'next'
