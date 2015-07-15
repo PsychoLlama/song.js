@@ -150,7 +150,11 @@
     if (!audio) {
       audio = this.getSong();
     }
-    title = audio.getAttribute('data-title');
+    try {
+      title = audio.getAttribute('data-title');
+    } catch (_error) {
+      title = '';
+    }
     return title;
   };
 
