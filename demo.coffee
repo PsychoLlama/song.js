@@ -18,12 +18,10 @@ sampleData = [
 	}
 ]
 
-song = new Song sampleData
+this.song = new Song sampleData
 song.repeat = true
-song.shuffle()
 
 window.onload = ->
-	makeTag = (tag) -> document.createElement(tag)
 	(->
 		nowPlaying = $ '#now-playling'
 
