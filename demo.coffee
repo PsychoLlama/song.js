@@ -18,7 +18,7 @@ sampleData = [
 	}
 ]
 
-this.song = new Song sampleData
+window.song = new Song sampleData
 song.repeat = true
 
 window.onload = ->
@@ -54,8 +54,8 @@ window.onload = ->
 				skipToSong(index)
 	)()
 	
-	$('#pause').onclick = -> song.getSong().pause()
-	$('#play').onclick = -> song.getSong().play()
-	$('#next').onclick = -> song.next().play()
-	$('#previous').onclick = -> song.previous().play()
-	$('#shuffle').onclick = -> song.shuffle()[0].play()
+	$('#pause').click -> song.getSong().pause()
+	$('#play').click -> song.getSong().play()
+	$('#next').click -> song.next().play()
+	$('#previous').click -> song.previous().play()
+	$('#shuffle').click -> song.shuffle()[0].play()

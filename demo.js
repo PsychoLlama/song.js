@@ -22,7 +22,7 @@
     }
   ];
 
-  this.song = new Song(sampleData);
+  window.song = new Song(sampleData);
 
   song.repeat = true;
 
@@ -57,21 +57,21 @@
         });
       });
     })();
-    $('#pause').onclick = function() {
+    $('#pause').click(function() {
       return song.getSong().pause();
-    };
-    $('#play').onclick = function() {
+    });
+    $('#play').click(function() {
       return song.getSong().play();
-    };
-    $('#next').onclick = function() {
+    });
+    $('#next').click(function() {
       return song.next().play();
-    };
-    $('#previous').onclick = function() {
+    });
+    $('#previous').click(function() {
       return song.previous().play();
-    };
-    return $('#shuffle').onclick = function() {
+    });
+    return $('#shuffle').click(function() {
       return song.shuffle()[0].play();
-    };
+    });
   };
 
 }).call(this);
