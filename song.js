@@ -53,112 +53,106 @@
     return this;
   };
 
-  root.Song.prototype.history = [];
-
-  root.Song.prototype.updateHistory = function(song) {
-    var history, last;
-    history = root.Song.prototype.history;
-    last = history.length - 1;
-    if (song === history[last]) {
-      return void 0;
-    } else {
-      return history.push(song);
-    }
-  };
-
-  root.Song.prototype.shuffle = function() {
-    this.songNumber = 0;
-    this.playlist.sort(function() {
-      return (Math.floor(Math.random() * 3)) - 1;
-    });
-    this.resetSongs();
-    fireSongEvent(this);
-    return this.playlist;
-  };
-
-  root.Song.prototype.next = function() {
-    var isLastSong, lastSong, repeat;
-    lastSong = this.playlist.length - 1;
-    isLastSong = this.songNumber === lastSong;
-    repeat = this.repeat;
-    if (isLastSong && repeat) {
-      return this.skipTo(0);
-    } else if (isLastSong && !repeat) {
-      return void 0;
-    } else if (this.songNumber < lastSong) {
-      return this.skipTo(this.songNumber + 1);
-    }
-  };
-
-  root.Song.prototype.previous = function() {
-    var audio;
-    audio = this.getSong();
-    if (audio.currentTime < 5 && audio.currentTime > 0) {
+  root.Song.prototype = {
+    constructor: root.Song,
+    history: [],
+    updateHistory: function(song) {
+      var history, last;
+      history = root.Song.prototype.history;
+      last = history.length - 1;
+      if (song === history[last]) {
+        return void 0;
+      } else {
+        return history.push(song);
+      }
+    },
+    shuffle: function() {
+      this.songNumber = 0;
+      this.playlist.sort(function() {
+        return (Math.floor(Math.random() * 3)) - 1;
+      });
       this.resetSongs();
-      return audio;
-    } else if (this.songNumber === 0 && this.repeat) {
-      return this.skipTo(this.playlist.length - 1);
-    } else if (this.songNumber > 0) {
-      return this.skipTo(this.songNumber - 1);
-    }
-  };
-
-  root.Song.prototype.skipTo = function(songNum) {
-    if (songNum >= this.playlist.length) {
-      return void 0;
-    }
-    if (songNum < 0) {
-      return void 0;
-    }
-    if (songNum || songNum === 0) {
-      this.resetSongs;
-      this.songNumber = songNum;
-      this.updateHistory(this.getSong());
       fireSongEvent(this);
-      return this.getSong();
-    }
-  };
-
-  root.Song.prototype.resetSongs = function() {
-    var song, _i, _len, _ref, _results;
-    _ref = this.playlist;
-    _results = [];
-    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      song = _ref[_i];
+      return this.playlist;
+    },
+    next: function() {
+      var isLastSong, lastSong, repeat;
+      lastSong = this.playlist.length - 1;
+      isLastSong = this.songNumber === lastSong;
+      repeat = this.repeat;
+      if (isLastSong && repeat) {
+        return this.skipTo(0);
+      } else if (isLastSong && !repeat) {
+        return void 0;
+      } else if (this.songNumber < lastSong) {
+        return this.skipTo(this.songNumber + 1);
+      }
+    },
+    previous: function() {
+      var audio;
+      audio = this.getSong();
+      if (audio.currentTime < 5 && audio.currentTime > 0) {
+        this.resetSongs();
+        return audio;
+      } else if (this.songNumber === 0 && this.repeat) {
+        return this.skipTo(this.playlist.length - 1);
+      } else if (this.songNumber > 0) {
+        return this.skipTo(this.songNumber - 1);
+      }
+    },
+    skipTo: function(songNum) {
+      if (songNum >= this.playlist.length) {
+        return void 0;
+      }
+      if (songNum < 0) {
+        return void 0;
+      }
+      if (songNum || songNum === 0) {
+        this.resetSongs;
+        this.songNumber = songNum;
+        this.updateHistory(this.getSong());
+        fireSongEvent(this);
+        return this.getSong();
+      }
+    },
+    resetSongs: function() {
+      var song, _i, _len, _ref, _results;
+      _ref = this.playlist;
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        song = _ref[_i];
+        try {
+          song.pause();
+          _results.push(song.currentTime = 0);
+        } catch (_error) {}
+      }
+      return _results;
+    },
+    getSong: function() {
+      return this.playlist[this.songNumber];
+    },
+    getAlbum: function(audio) {
+      var img, src;
+      if (!audio) {
+        audio = this.getSong();
+      }
+      src = audio.getAttribute('data-img');
+      img = document.createElement('img');
+      img.src = src;
+      return img;
+    },
+    getTitle: function(audio) {
+      var title;
+      if (!audio) {
+        audio = this.getSong();
+      }
       try {
-        song.pause();
-        _results.push(song.currentTime = 0);
-      } catch (_error) {}
+        title = audio.getAttribute('data-title');
+      } catch (_error) {
+        title = '';
+      }
+      return title;
     }
-    return _results;
-  };
-
-  root.Song.prototype.getSong = function() {
-    return this.playlist[this.songNumber];
-  };
-
-  root.Song.prototype.getAlbum = function(audio) {
-    var img, src;
-    if (!audio) {
-      audio = this.getSong();
-    }
-    src = audio.getAttribute('data-img');
-    img = document.createElement('img');
-    img.src = src;
-    return img;
-  };
-
-  root.Song.prototype.getTitle = function(audio) {
-    var title;
-    if (!audio) {
-      audio = this.getSong();
-    }
-    try {
-      title = audio.getAttribute('data-title');
-    } catch (_error) {
-      title = '';
-    }
-    return title;
   };
 
 }).call(this);
