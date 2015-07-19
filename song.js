@@ -79,11 +79,11 @@
     isLastSong = this.songNumber === lastSong;
     repeat = this.repeat;
     if (isLastSong && repeat) {
-      return this.prototype.skipTo(0);
+      return this.skipTo(0);
     } else if (isLastSong && !repeat) {
       return void 0;
     } else if (this.songNumber < lastSong) {
-      return this.prototype.skipTo(this.songNumber + 1);
+      return this.skipTo(this.songNumber + 1);
     }
   };
 
@@ -94,9 +94,9 @@
       this.resetSongs();
       return audio;
     } else if (this.songNumber === 0) {
-      return this.prototype.skipTo(this.playlist.length - 1);
+      return this.skipTo(this.playlist.length - 1);
     } else if (this.songNumber > 0) {
-      return this.prototype.skipTo(this.songNumber - 1);
+      return this.skipTo(this.songNumber - 1);
     }
   };
 

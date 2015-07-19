@@ -63,13 +63,13 @@ root.Song.prototype.next = ->
 	repeat = this.repeat
 
 	if isLastSong and repeat
-		this.prototype.skipTo(0)
+		this.skipTo(0)
 
 	else if isLastSong and not repeat
 		return undefined
 
 	else if this.songNumber < lastSong
-		this.prototype.skipTo (this.songNumber + 1)
+		this.skipTo (this.songNumber + 1)
 
 root.Song.prototype.previous = ->
 	audio = this.getSong()
@@ -79,10 +79,10 @@ root.Song.prototype.previous = ->
 		return audio
 
 	else if this.songNumber is 0
-		this.prototype.skipTo (this.playlist.length - 1)
+		this.skipTo (this.playlist.length - 1)
 
 	else if this.songNumber > 0
-		this.prototype.skipTo (this.songNumber - 1)
+		this.skipTo (this.songNumber - 1)
 
 root.Song.prototype.skipTo = (songNum) ->
 	return undefined if songNum >= this.playlist.length
