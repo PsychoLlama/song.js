@@ -18,44 +18,4 @@ sampleData = [
 	}
 ]
 
-window.song = new Song sampleData
-song.repeat = true
-
-window.onload = ->
-	(->
-		nowPlaying = $ '#now-playling'
-
-		setNowPlaying = ->
-			title = $('<p>' + song.getTitle() + '</p>').append $ '<br>'
-
-			art = $ song.getAlbum()
-
-			nowPlaying.text ''
-			nowPlaying.append title, art
-
-		song.songChange.push setNowPlaying
-		setNowPlaying()
-	)()
-	(->
-		skipToSong = (songNum) ->
-			song.skipTo songNum
-
-		playlist = $ '#playlist'
-
-		$(song.playlist).each (tag, index) ->
-			div = $('<div>').addClass('playlist')
-
-			h2 = $('<h2>').text( song.getTitle(tag) )
-
-			div.append h2
-			playlist.append div
-
-			div.on 'click', ->
-				skipToSong(index)
-	)()
-	
-	$('#pause').click -> song.getSong().pause()
-	$('#play').click -> song.getSong().play()
-	$('#next').click -> song.next().play()
-	$('#previous').click -> song.previous().play()
-	$('#shuffle').click -> song.shuffle()[0].play()
+this.song = new Song(sampleData)

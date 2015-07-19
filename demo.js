@@ -22,56 +22,6 @@
     }
   ];
 
-  window.song = new Song(sampleData);
-
-  song.repeat = true;
-
-  window.onload = function() {
-    (function() {
-      var nowPlaying, setNowPlaying;
-      nowPlaying = $('#now-playling');
-      setNowPlaying = function() {
-        var art, title;
-        title = $('<p>' + song.getTitle() + '</p>').append($('<br>'));
-        art = $(song.getAlbum());
-        nowPlaying.text('');
-        return nowPlaying.append(title, art);
-      };
-      song.songChange.push(setNowPlaying);
-      return setNowPlaying();
-    })();
-    (function() {
-      var playlist, skipToSong;
-      skipToSong = function(songNum) {
-        return song.skipTo(songNum);
-      };
-      playlist = $('#playlist');
-      return $(song.playlist).each(function(tag, index) {
-        var div, h2;
-        div = $('<div>').addClass('playlist');
-        h2 = $('<h2>').text(song.getTitle(tag));
-        div.append(h2);
-        playlist.append(div);
-        return div.on('click', function() {
-          return skipToSong(index);
-        });
-      });
-    })();
-    $('#pause').click(function() {
-      return song.getSong().pause();
-    });
-    $('#play').click(function() {
-      return song.getSong().play();
-    });
-    $('#next').click(function() {
-      return song.next().play();
-    });
-    $('#previous').click(function() {
-      return song.previous().play();
-    });
-    return $('#shuffle').click(function() {
-      return song.shuffle()[0].play();
-    });
-  };
+  this.song = new Song(sampleData);
 
 }).call(this);
