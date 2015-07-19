@@ -74,7 +74,7 @@ root.Song.prototype.next = ->
 root.Song.prototype.previous = ->
 	audio = this.getSong()
 
-	if audio.currentTime < 5
+	if audio.currentTime < 5 and audio.currentTime > 0
 		this.resetSongs()
 		return audio
 

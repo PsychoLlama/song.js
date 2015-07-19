@@ -90,7 +90,7 @@
   root.Song.prototype.previous = function() {
     var audio;
     audio = this.getSong();
-    if (audio.currentTime < 5) {
+    if (audio.currentTime < 5 && audio.currentTime > 0) {
       this.resetSongs();
       return audio;
     } else if (this.songNumber === 0) {
