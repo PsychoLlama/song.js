@@ -10,9 +10,10 @@ makeAudio = (title, src, img) ->
 
 	return aud
 
-fireSongEvent = (playlist) ->
-	try playlist.callbacks.forEach (callback) ->
-		callback playlist.getSong()
+fireSongEvent = (instance) ->
+	try instance.callbacks.forEach (callback) ->
+		callback instance.getSong()
+
 
 root.Song = (playlist) ->
 	@repeat = false
@@ -22,8 +23,6 @@ root.Song = (playlist) ->
 
 	@songNumber = 0
 	@callbacks = []
-	@songChange = (callback) ->
-		@callbacks.push(callback)
 	
 	return @
 
@@ -33,6 +32,10 @@ root.Song.prototype = {
 	
 	constructor: root.Song
 	history: []
+	
+	songChange: (callback) ->
+		@callbacks.push(callback)
+	
 	updateHistory: (song) ->
 		history = root.Song.prototype.history
 		last = history.length - 1

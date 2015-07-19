@@ -20,10 +20,10 @@
     return aud;
   };
 
-  fireSongEvent = function(playlist) {
+  fireSongEvent = function(instance) {
     try {
-      return playlist.callbacks.forEach(function(callback) {
-        return callback(playlist.getSong());
+      return instance.callbacks.forEach(function(callback) {
+        return callback(instance.getSong());
       });
     } catch (_error) {}
   };
@@ -34,15 +34,15 @@
     this.add(playlist);
     this.songNumber = 0;
     this.callbacks = [];
-    this.songChange = function(callback) {
-      return this.callbacks.push(callback);
-    };
     return this;
   };
 
   root.Song.prototype = {
     constructor: root.Song,
     history: [],
+    songChange: function(callback) {
+      return this.callbacks.push(callback);
+    },
     updateHistory: function(song) {
       var history, last;
       history = root.Song.prototype.history;
