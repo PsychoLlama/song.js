@@ -93,7 +93,7 @@
     if (audio.currentTime < 5 && audio.currentTime > 0) {
       this.resetSongs();
       return audio;
-    } else if (this.songNumber === 0) {
+    } else if (this.songNumber === 0 && this.repeat) {
       return this.skipTo(this.playlist.length - 1);
     } else if (this.songNumber > 0) {
       return this.skipTo(this.songNumber - 1);

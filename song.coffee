@@ -78,7 +78,7 @@ root.Song.prototype.previous = ->
 		this.resetSongs()
 		return audio
 
-	else if this.songNumber is 0
+	else if this.songNumber is 0 and this.repeat
 		this.skipTo (this.playlist.length - 1)
 
 	else if this.songNumber > 0
