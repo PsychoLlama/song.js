@@ -22,7 +22,7 @@ add = (playlist, destination) ->
 	return destination
 
 fireSongEvent = (playlist) ->
-	try playlist.songChange.forEach (callback) ->
+	try playlist.callbacks.forEach (callback) ->
 		callback playlist.getSong()
 
 root.Song = (playlist) ->
@@ -32,7 +32,10 @@ root.Song = (playlist) ->
 	add playlist, this.playlist
 
 	this.songNumber = 0
-	this.songChange = []
+	this.callbacks = []
+	this.songChange = (callback) ->
+		this.callbacks.push(callback)
+	
 	return this
 
 root.Song.prototype.history = []

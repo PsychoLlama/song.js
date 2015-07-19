@@ -35,7 +35,7 @@
 
   fireSongEvent = function(playlist) {
     try {
-      return playlist.songChange.forEach(function(callback) {
+      return playlist.callbacks.forEach(function(callback) {
         return callback(playlist.getSong());
       });
     } catch (_error) {}
@@ -46,7 +46,10 @@
     this.playlist = [];
     add(playlist, this.playlist);
     this.songNumber = 0;
-    this.songChange = [];
+    this.callbacks = [];
+    this.songChange = function(callback) {
+      return this.callbacks.push(callback);
+    };
     return this;
   };
 
