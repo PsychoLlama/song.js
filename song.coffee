@@ -1,5 +1,5 @@
 'use strict'
-root = this
+root = @
 
 makeAudio = (title, src, img) ->
 	aud = document.createElement 'audio'
@@ -10,35 +10,27 @@ makeAudio = (title, src, img) ->
 
 	return aud
 
-add = (playlist, destination) ->
-	return undefined if playlist.length is 0
-
-	for song in playlist
-		audio = makeAudio song.title,
-		song.src,
-		song.img
-
-		destination.push audio
-	return destination
-
 fireSongEvent = (playlist) ->
 	try playlist.callbacks.forEach (callback) ->
 		callback playlist.getSong()
 
 root.Song = (playlist) ->
-	this.repeat = false
+	@repeat = false
 
-	this.playlist = []
-	add playlist, this.playlist
+	@playlist = []
+	@add playlist
 
-	this.songNumber = 0
-	this.callbacks = []
-	this.songChange = (callback) ->
-		this.callbacks.push(callback)
+	@songNumber = 0
+	@callbacks = []
+	@songChange = (callback) ->
+		@callbacks.push(callback)
 	
-	return this
+	return @
 
+
+# Built-in methods
 root.Song.prototype = {
+	
 	constructor: root.Song
 	history: []
 	updateHistory: (song) ->
@@ -51,68 +43,68 @@ root.Song.prototype = {
 			history.push song
 	
 	shuffle: ->
-		this.songNumber = 0
+		@songNumber = 0
 	
-		this.playlist.sort ->
+		@playlist.sort ->
 			(Math.floor Math.random() * 3) - 1
 	
-		this.resetSongs()
-		fireSongEvent(this)
+		@resetSongs()
+		fireSongEvent(@)
 	
-		this.playlist
+		@playlist
 	
 	next: ->
-		lastSong = this.playlist.length - 1
-		isLastSong = this.songNumber is lastSong
-		repeat = this.repeat
+		lastSong = @playlist.length - 1
+		isLastSong = @songNumber is lastSong
+		repeat = @repeat
 	
 		if isLastSong and repeat
-			this.skipTo(0)
+			@skipTo(0)
 	
 		else if isLastSong and not repeat
 			return undefined
 	
-		else if this.songNumber < lastSong
-			this.skipTo (this.songNumber + 1)
+		else if @songNumber < lastSong
+			@skipTo (@songNumber + 1)
 	
 	previous: ->
-		audio = this.getSong()
+		audio = @getSong()
 	
 		if audio.currentTime < 5 and audio.currentTime > 0
-			this.resetSongs()
+			@resetSongs()
 			return audio
 	
-		else if this.songNumber is 0 and this.repeat
-			this.skipTo (this.playlist.length - 1)
+		else if @songNumber is 0 and @repeat
+			@skipTo (@playlist.length - 1)
 	
-		else if this.songNumber > 0
-			this.skipTo (this.songNumber - 1)
+		else if @songNumber > 0
+			@skipTo (@songNumber - 1)
 	
 	skipTo: (songNum) ->
-		return undefined if songNum >= this.playlist.length
+		return undefined if songNum >= @playlist.length
 		return undefined if songNum < 0
 		
 		if songNum or songNum is 0
-			this.resetSongs
-			this.songNumber = songNum
+			@resetSongs
+			@songNumber = songNum
 			
-			this.updateHistory this.getSong()
-			fireSongEvent(this)
+			@updateHistory @getSong()
+			fireSongEvent(@)
 			
-			return this.getSong()
+			return @getSong()
 	
 	resetSongs: ->
-		for song in this.playlist
+		for song in @playlist
 			try
 				song.pause()
 				song.currentTime = 0
 	
 	getSong: ->
-		return this.playlist[this.songNumber]
+		return @playlist[@songNumber]
 	
 	getAlbum: (audio) ->
 		if not audio
-			audio = this.getSong()
+			audio = @getSong()
 			
 		src = audio.getAttribute 'data-img'
 		img = document.createElement 'img'
@@ -122,11 +114,30 @@ root.Song.prototype = {
 	
 	getTitle: (audio) ->
 		if not audio
-			audio = this.getSong()
+			audio = @getSong()
 		
 		try
 			title = audio.getAttribute 'data-title'
 		catch
 			title = '';
 		return title
+
+	add: (playlist) ->
+		if playlist.length > 0 and typeof playlist is 'object'
+			# treat playlist as an object array
+			for song in playlist
+				audioTag = makeAudio song.title,
+				song.src,
+				song.img
+		
+				@playlist.push audioTag
+			return @playlist
+		
+		else if typeof playlist is 'object'
+			# treat playlist as one object
+			audioTag = makeAudio playlist.title,
+			playlist.src,
+			playlist.img
+			
+			@playlist.push audioTag
 }
