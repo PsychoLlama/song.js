@@ -14,6 +14,9 @@ fireSongEvent = (instance) ->
 	try instance.callbacks.forEach (callback) ->
 		callback instance.getSong()
 
+clean = (playlist) ->
+	song for song in playlist when song
+
 
 root.Song = (playlist) ->
 	@repeat = false
@@ -126,6 +129,7 @@ root.Song.prototype = {
 		return title
 
 	add: (playlist) ->
+		return undefined if not playlist
 		if playlist.length > 0 and typeof playlist is 'object'
 			# treat playlist as an object array
 			for song in playlist
@@ -143,4 +147,22 @@ root.Song.prototype = {
 			playlist.img
 			
 			@playlist.push audioTag
+			
+			fireSongEvent @
+			
+			return @playlist
+	
+	remove: (songNum) ->
+		if songNum >= 0 and songNum < @playlist.length
+			
+			delete @playlist[songNum]
+			@playlist = clean(@playlist)
+			fireSongEvent @
+			
+			if @songNumber is songNum
+				@songNumber = 0
+			else if @songNumber > songNum
+				@songNumber--
+			
+			return @playlist
 }
