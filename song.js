@@ -173,7 +173,7 @@
     add: function(data) {
       var song, _i, _len;
       if (typeof data !== 'object') {
-        return false;
+        return null;
       }
       if (data.length > 0) {
         for (_i = 0, _len = data.length; _i < _len; _i++) {
@@ -200,6 +200,17 @@
         }
         return this;
       }
+    },
+    each: function(callback) {
+      var song, _i, _len, _ref;
+      try {
+        _ref = this.playlist;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          song = _ref[_i];
+          callback(song);
+        }
+      } catch (_error) {}
+      return this;
     }
   };
 

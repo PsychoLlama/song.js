@@ -143,7 +143,7 @@ root.Song.prototype = {
 		return songTitle
 
 	add: (data) ->
-		return false if typeof data isnt 'object'
+		return null if typeof data isnt 'object'
 		
 		if data.length > 0
 			# It's a playlist
@@ -176,4 +176,11 @@ root.Song.prototype = {
 				@songNumber--
 			
 			return @
+	
+	each: (callback) ->
+		try
+			for song in @playlist
+				callback(song)
+		
+		return @
 }
