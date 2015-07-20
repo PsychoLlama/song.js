@@ -1,23 +1,36 @@
 'use strict'
 root = @
 
-makeAudio = (title, src, img) ->
+# Generic methods
+makeAudio = (song) ->
 	aud = document.createElement 'audio'
 
-	aud.setAttribute 'data-title', title if title
-	aud.setAttribute 'src', src if src
-	aud.setAttribute 'data-img', img if img
+	aud.setAttribute 'data-title', song.title if song.title
+	aud.setAttribute 'src', song.src if song.src
+	aud.setAttribute 'data-img', song.img if song.img
 
 	return aud
 
 fireSongEvent = (instance) ->
-	try instance.callbacks.forEach (callback) ->
-		callback instance.getSong()
+	try
+		for callback in instance.callbacks
+			callback instance.getSong()
 
-clean = (playlist) ->
-	song for song in playlist when song
+clean = (array) ->
+	# Returns an array without any falsy values
+	value for value in array when value
+
+resetSongs = (instance) ->
+	playlist = instance.playlist
+	for song in playlist
+		try
+			song.pause()
+			song.currentTime = 0
+	
+	return instance
 
 
+# Song constructor
 root.Song = (playlist) ->
 	@repeat = false
 
@@ -34,19 +47,11 @@ root.Song = (playlist) ->
 root.Song.prototype = {
 	
 	constructor: root.Song
-	history: []
 	
 	songChange: (callback) ->
 		@callbacks.push(callback)
-	
-	updateHistory: (song) ->
-		history = root.Song.prototype.history
-		last = history.length - 1
 		
-		if song is history[last]
-			undefined
-		else
-			history.push song
+		return @
 	
 	shuffle: ->
 		@songNumber = 0
@@ -54,10 +59,22 @@ root.Song.prototype = {
 		@playlist.sort ->
 			(Math.floor Math.random() * 3) - 1
 	
-		@resetSongs()
-		fireSongEvent(@)
+		resetSongs(@)
+		fireSongEvent @
 	
-		@playlist
+		return @
+	
+	play: ->
+		song = @getSong()
+		if song
+			song.play()
+			return @
+	
+	pause: ->
+		song = @getSong()
+		if song
+			song.pause()
+			return @
 	
 	next: ->
 		lastSong = @playlist.length - 1
@@ -77,8 +94,8 @@ root.Song.prototype = {
 		audio = @getSong()
 	
 		if audio.currentTime < 5 and audio.currentTime > 0
-			@resetSongs()
-			return audio
+			resetSongs(@)
+			return @
 	
 		else if @songNumber is 0 and @repeat
 			@skipTo (@playlist.length - 1)
@@ -91,66 +108,60 @@ root.Song.prototype = {
 		return undefined if songNum < 0
 		
 		if songNum or songNum is 0
-			@resetSongs
+			resetSongs(@)
 			@songNumber = songNum
 			
-			@updateHistory @getSong()
-			fireSongEvent(@)
+			fireSongEvent @
 			
-			return @getSong()
+			return @
 	
-	resetSongs: ->
-		for song in @playlist
-			try
-				song.pause()
-				song.currentTime = 0
+	getSong: (songNum) ->
+		if not songNum
+			return @playlist[@songNumber]
+		
+		if songNum >= 0 and songNum < @playlist.length
+			return @playlist[songNum]
 	
-	getSong: ->
-		return @playlist[@songNumber]
-	
-	getAlbum: (audio) ->
-		if not audio
-			audio = @getSong()
-			
+	album: (audio) ->
+		audio ?= @getSong()
+		
 		src = audio.getAttribute 'data-img'
+		return if src is null
+		
 		img = document.createElement 'img'
 		img.src = src
 		
 		return img
 	
-	getTitle: (audio) ->
-		if not audio
-			audio = @getSong()
+	title: (audio) ->
+		audio ?= @getSong()
 		
 		try
-			title = audio.getAttribute 'data-title'
+			songTitle = audio.getAttribute 'data-title'
 		catch
-			title = '';
-		return title
+			songTitle = '';
+		return songTitle
 
-	add: (playlist) ->
-		return undefined if not playlist
-		if playlist.length > 0 and typeof playlist is 'object'
-			# treat playlist as an object array
-			for song in playlist
-				audioTag = makeAudio song.title,
-				song.src,
-				song.img
+	add: (data) ->
+		return false if typeof data isnt 'object'
 		
-				@playlist.push audioTag
-			return @playlist
+		if data.length > 0
+			# It's a playlist
+			
+			for song in data
+				@playlist.push makeAudio song
+				
+		else if data.tagName is 'AUDIO'
+			# It's an <audio> tag
+			
+			@playlist.push data
+		else
+			# User passed a single object
+			@playlist.push makeAudio data
 		
-		else if typeof playlist is 'object'
-			# treat playlist as one object
-			audioTag = makeAudio playlist.title,
-			playlist.src,
-			playlist.img
-			
-			@playlist.push audioTag
-			
-			fireSongEvent @
-			
-			return @playlist
+		fireSongEvent @
+		
+		return @
 	
 	remove: (songNum) ->
 		if songNum >= 0 and songNum < @playlist.length
@@ -164,5 +175,5 @@ root.Song.prototype = {
 			else if @songNumber > songNum
 				@songNumber--
 			
-			return @playlist
+			return @
 }
