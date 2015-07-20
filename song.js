@@ -6,18 +6,18 @@
   root = this;
 
   makeAudio = function(song) {
-    var aud;
-    aud = document.createElement('audio');
-    if (song.title) {
-      aud.setAttribute('data-title', song.title);
-    }
+    var audio;
+    audio = new Audio();
     if (song.src) {
-      aud.setAttribute('src', song.src);
+      audio.src = song.src;
+    }
+    if (song.title) {
+      audio.setAttribute('data-title', song.title);
     }
     if (song.img) {
-      aud.setAttribute('data-img', song.img);
+      audio.setAttribute('data-img', song.img);
     }
-    return aud;
+    return audio;
   };
 
   fireSongEvent = function(instance) {

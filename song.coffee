@@ -3,13 +3,13 @@ root = @
 
 # Generic methods
 makeAudio = (song) ->
-	aud = document.createElement 'audio'
+	audio = new Audio()
+	audio.src = song.src if song.src
 
-	aud.setAttribute 'data-title', song.title if song.title
-	aud.setAttribute 'src', song.src if song.src
-	aud.setAttribute 'data-img', song.img if song.img
+	audio.setAttribute 'data-title', song.title if song.title
+	audio.setAttribute 'data-img', song.img if song.img
 
-	return aud
+	return audio
 
 fireSongEvent = (instance) ->
 	try
