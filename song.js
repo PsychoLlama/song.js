@@ -114,7 +114,7 @@
     previous: function() {
       var audio;
       audio = this.getSong();
-      if (audio.currentTime < 5 && audio.currentTime > 0) {
+      if (audio.currentTime > 5) {
         resetSongs(this);
         return this;
       } else if (this.songNumber === 0 && this.repeat) {
@@ -207,7 +207,7 @@
         _ref = this.playlist;
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           song = _ref[_i];
-          callback(song);
+          callback(song, _i);
         }
       } catch (_error) {}
       return this;

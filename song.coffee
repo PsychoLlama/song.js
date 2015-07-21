@@ -93,7 +93,7 @@ root.Song.prototype = {
 	previous: ->
 		audio = @getSong()
 	
-		if audio.currentTime < 5 and audio.currentTime > 0
+		if audio.currentTime > 5
 			resetSongs(@)
 			return @
 	
@@ -180,7 +180,7 @@ root.Song.prototype = {
 	each: (callback) ->
 		try
 			for song in @playlist
-				callback(song)
+				callback(song, _i)
 		
 		return @
 }
