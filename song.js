@@ -63,7 +63,7 @@
       name = '';
     }
     this.name = name;
-    this.repeat = false;
+    this.repeatState = false;
     this.songs = [];
     this.songNumber = 0;
     this.callbacks = [];
@@ -105,10 +105,10 @@
       var lastSong, onLastSong;
       lastSong = this.songs.length - 1;
       onLastSong = this.songNumber === lastSong;
-      if (onLastSong && this.repeat === true) {
+      if (onLastSong && this.repeat() === true) {
         return this.skipTo(0);
       }
-      if (onLastSong && this.repeat === false) {
+      if (onLastSong && this.repeat() === false) {
         return void 0;
       } else if (this.songNumber < lastSong) {
         return this.skipTo(this.songNumber + 1);
@@ -121,7 +121,7 @@
         resetSongs(this);
         return this;
       }
-      if (this.songNumber === 0 && this.repeat === true) {
+      if (this.songNumber === 0 && this.repeat() === true) {
         return this.skipTo(this.songs.length - 1);
       }
       if (this.songNumber > 0) {
@@ -141,6 +141,15 @@
         fireSongEvent(this);
         return this;
       }
+    },
+    repeat: function(bool) {
+      if (bool === void 0) {
+        return this.repeatState;
+      }
+      if (typeof bool === 'boolean') {
+        this.repeatState = bool;
+      }
+      return this;
     },
     getSong: function(songNum) {
       if (!songNum) {

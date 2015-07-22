@@ -35,7 +35,7 @@ resetSongs = (instance) ->
 # Song constructor
 root.Playlist = (name = '') ->
 	@name = name
-	@repeat = false
+	@repeatState = false
 
 	@songs = []
 
@@ -80,10 +80,10 @@ root.Playlist.prototype = {
 		lastSong = @songs.length - 1
 		onLastSong = @songNumber is lastSong
 	
-		if onLastSong and @repeat is on
+		if onLastSong and @repeat() is on
 			return @skipTo(0)
 	
-		if onLastSong and @repeat is off
+		if onLastSong and @repeat() is off
 			return undefined
 	
 		else if @songNumber < lastSong
@@ -96,7 +96,7 @@ root.Playlist.prototype = {
 			resetSongs(@)
 			return @
 	
-		if @songNumber is 0 and @repeat is on
+		if @songNumber is 0 and @repeat() is on
 			return @skipTo (@songs.length - 1)
 	
 		if @songNumber > 0
@@ -113,6 +113,16 @@ root.Playlist.prototype = {
 			fireSongEvent @
 			
 			return @
+	
+	repeat: (bool) ->
+		if bool is undefined
+			return @repeatState
+		if typeof bool is 'boolean'
+			@repeatState = bool
+		
+		return @
+		
+		
 	
 	getSong: (songNum) ->
 		if not songNum
