@@ -18,4 +18,5 @@ sampleData = [
 	}
 ]
 
-this.song = new Song(sampleData)
+this.playlist = new Playlist('Music for Programming')
+.add(sampleData)
