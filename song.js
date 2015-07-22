@@ -168,12 +168,12 @@
       if (audio == null) {
         audio = this.getSong();
       }
-      try {
-        songTitle = audio.getAttribute('data-title');
-      } catch (_error) {
-        songTitle = void 0;
+      songTitle = audio.getAttribute('data-title');
+      if (songTitle) {
+        return songTitle;
+      } else {
+        return void 0;
       }
-      return songTitle;
     },
     add: function(data) {
       var song, _i, _len;

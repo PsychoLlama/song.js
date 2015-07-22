@@ -132,11 +132,10 @@ root.Playlist.prototype = {
 		return img
 	
 	title: (audio = @getSong()) ->
-		try
-			songTitle = audio.getAttribute 'data-title'
-		catch
-			songTitle = undefined;
-		return songTitle
+		songTitle = audio.getAttribute 'data-title'
+		if songTitle
+			return songTitle
+		else return undefined
 
 	add: (data) ->
 		return null if typeof data isnt 'object'
