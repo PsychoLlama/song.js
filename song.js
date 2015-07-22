@@ -47,7 +47,7 @@
 
   resetSongs = function(instance) {
     var playlist, song, _i, _len;
-    playlist = instance.playlist;
+    playlist = instance.songs;
     for (_i = 0, _len = playlist.length; _i < _len; _i++) {
       song = playlist[_i];
       try {
@@ -58,24 +58,27 @@
     return instance;
   };
 
-  root.Song = function(playlist) {
+  root.Playlist = function(name) {
+    if (name == null) {
+      name = '';
+    }
+    this.name = name;
     this.repeat = false;
-    this.playlist = [];
-    this.add(playlist);
+    this.songs = [];
     this.songNumber = 0;
     this.callbacks = [];
     return this;
   };
 
-  root.Song.prototype = {
-    constructor: root.Song,
+  root.Playlist.prototype = {
+    constructor: root.Playlist,
     songChange: function(callback) {
       this.callbacks.push(callback);
       return this;
     },
     shuffle: function() {
       this.songNumber = 0;
-      this.playlist.sort(function() {
+      this.songs.sort(function() {
         return (Math.floor(Math.random() * 3)) - 1;
       });
       resetSongs(this);
@@ -85,27 +88,27 @@
     play: function() {
       var song;
       song = this.getSong();
-      if (song) {
+      if (song != null) {
         song.play();
-        return this;
       }
+      return this;
     },
     pause: function() {
       var song;
       song = this.getSong();
-      if (song) {
+      if (song != null) {
         song.pause();
-        return this;
       }
+      return this;
     },
     next: function() {
-      var isLastSong, lastSong, repeat;
-      lastSong = this.playlist.length - 1;
-      isLastSong = this.songNumber === lastSong;
-      repeat = this.repeat;
-      if (isLastSong && repeat) {
+      var lastSong, onLastSong;
+      lastSong = this.songs.length - 1;
+      onLastSong = this.songNumber === lastSong;
+      if (onLastSong && this.repeat === true) {
         return this.skipTo(0);
-      } else if (isLastSong && !repeat) {
+      }
+      if (onLastSong && this.repeat === false) {
         return void 0;
       } else if (this.songNumber < lastSong) {
         return this.skipTo(this.songNumber + 1);
@@ -117,14 +120,16 @@
       if (audio.currentTime > 5) {
         resetSongs(this);
         return this;
-      } else if (this.songNumber === 0 && this.repeat) {
-        return this.skipTo(this.playlist.length - 1);
-      } else if (this.songNumber > 0) {
+      }
+      if (this.songNumber === 0 && this.repeat === true) {
+        return this.skipTo(this.songs.length - 1);
+      }
+      if (this.songNumber > 0) {
         return this.skipTo(this.songNumber - 1);
       }
     },
     skipTo: function(songNum) {
-      if (songNum >= this.playlist.length) {
+      if (songNum >= this.songs.length) {
         return void 0;
       }
       if (songNum < 0) {
@@ -139,10 +144,10 @@
     },
     getSong: function(songNum) {
       if (!songNum) {
-        return this.playlist[this.songNumber];
+        return this.songs[this.songNumber];
       }
-      if (songNum >= 0 && songNum < this.playlist.length) {
-        return this.playlist[songNum];
+      if (songNum >= 0 && songNum < this.songs.length) {
+        return this.songs[songNum];
       }
     },
     album: function(audio) {
@@ -166,7 +171,7 @@
       try {
         songTitle = audio.getAttribute('data-title');
       } catch (_error) {
-        songTitle = '';
+        songTitle = void 0;
       }
       return songTitle;
     },
@@ -178,20 +183,20 @@
       if (data.length > 0) {
         for (_i = 0, _len = data.length; _i < _len; _i++) {
           song = data[_i];
-          this.playlist.push(makeAudio(song));
+          this.songs.push(makeAudio(song));
         }
       } else if (data.tagName === 'AUDIO') {
-        this.playlist.push(data);
+        this.songs.push(data);
       } else {
-        this.playlist.push(makeAudio(data));
+        this.songs.push(makeAudio(data));
       }
       fireSongEvent(this);
       return this;
     },
     remove: function(songNum) {
-      if (songNum >= 0 && songNum < this.playlist.length) {
-        delete this.playlist[songNum];
-        this.playlist = clean(this.playlist);
+      if ((0 <= songNum && songNum < this.songs.length)) {
+        delete this.songs[songNum];
+        this.songs = clean(this.songs);
         fireSongEvent(this);
         if (this.songNumber === songNum) {
           this.songNumber = 0;
@@ -204,7 +209,7 @@
     each: function(callback) {
       var song, _i, _len, _ref;
       try {
-        _ref = this.playlist;
+        _ref = this.songs;
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           song = _ref[_i];
           callback(song, _i);
