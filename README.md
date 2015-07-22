@@ -57,13 +57,14 @@
 </p>
 
 <h4>
-  <code>playlist.repeat</code>
+  <code>playlist.repeat(boolean)</code>
 </h4>
 <p>
   After fiddling with <code>next</code> and <code>previous</code>,
   you probably noticed that <code>undefined</code> returns
   at your playlists' edges. You can break these borders by
-  turning on repeat: <code>playlist.repeat = true</code>.
+  turning on repeat: <code>repeat(true)</code>.
+  To see what it's set at, just ask <code>repeat()</code>.
 </p>
 
 <h4>
@@ -109,9 +110,9 @@
 <pre>
 new Playlist("60's Mashup")
   .add(songs)
+  .repeat(true)
   .skipTo(3)
   .play()
-  .repeat = true
 </pre>
 </p>
 
