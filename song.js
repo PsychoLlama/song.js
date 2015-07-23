@@ -129,18 +129,16 @@
       }
     },
     skipTo: function(songNum) {
-      if (songNum >= this.songs.length) {
-        return void 0;
+      if (((0 <= songNum && songNum < this.songs.length)) === false) {
+        return;
       }
-      if (songNum < 0) {
-        return void 0;
+      if (songNum === void 0) {
+        return;
       }
-      if (songNum || songNum === 0) {
-        resetSongs(this);
-        this.songNumber = songNum;
-        fireSongEvent(this);
-        return this;
-      }
+      resetSongs(this);
+      this.songNumber = songNum;
+      fireSongEvent(this);
+      return this;
     },
     repeat: function(bool) {
       if (bool === void 0) {

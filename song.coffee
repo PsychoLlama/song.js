@@ -103,16 +103,16 @@ root.Playlist.prototype = {
 			return @skipTo (@songNumber - 1)
 	
 	skipTo: (songNum) ->
-		return undefined if songNum >= @songs.length
-		return undefined if songNum < 0
+		if (0 <= songNum < @songs.length) is false
+			return
+		return if songNum is undefined
+			
+		resetSongs(@)
+		@songNumber = songNum
 		
-		if songNum or songNum is 0
-			resetSongs(@)
-			@songNumber = songNum
-			
-			fireSongEvent @
-			
-			return @
+		fireSongEvent @
+		
+		return @
 	
 	repeat: (bool) ->
 		if bool is undefined
