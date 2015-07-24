@@ -32,29 +32,22 @@ resetSongs = (instance) ->
 	return instance
 
 
-# Song constructor
-root.Playlist = (name = '') ->
-	@name = name
-	@repeatState = false
-
-	@songs = []
-
-	@songNumber = 0
-	@callbacks = []
+class Playlist
+	constructor: (@name) ->
+		@repeatState = false
+		
+		@songs = []
+		
+		@songNumber = 0
+		@callbacks = []
 	
-	return @
-
-
-# Built-in methods
-root.Playlist.prototype = {
 	
-	constructor: root.Playlist
-	
+	# Inherited methods
 	songChange: (callback) ->
-		@callbacks.push(callback)
+		@callbacks.push callback
 		
 		return @
-	
+
 	shuffle: ->
 		@songNumber = 0
 	
@@ -188,4 +181,5 @@ root.Playlist.prototype = {
 				callback(song, _i)
 		
 		return @
-}
+		
+root.Playlist = Playlist
