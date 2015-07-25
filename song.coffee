@@ -34,12 +34,25 @@ resetSongs = (instance) ->
 
 class Playlist
 	constructor: (@name) ->
-		@repeatState = false
 		
 		@songs = []
 		
 		@songNumber = 0
 		@callbacks = []
+		
+		@repeat = (->
+			# Hide access to repeatState
+			# through a get/set closure
+			repeatState = false
+			return (bool) ->
+				if bool is undefined
+					return repeatState
+					
+				if typeof bool is 'boolean'
+					repeatState = bool
+				
+				return @
+			)()
 	
 	
 	# Inherited methods
@@ -106,15 +119,6 @@ class Playlist
 		fireSongEvent @
 		
 		return @
-	
-	repeat: (bool) ->
-		if bool is undefined
-			return @repeatState
-		if typeof bool is 'boolean'
-			@repeatState = bool
-		
-		return @
-		
 		
 	
 	getSong: (songNum) ->

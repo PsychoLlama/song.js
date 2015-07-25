@@ -61,10 +61,22 @@
   Playlist = (function() {
     function Playlist(name) {
       this.name = name;
-      this.repeatState = false;
       this.songs = [];
       this.songNumber = 0;
       this.callbacks = [];
+      this.repeat = (function() {
+        var repeatState;
+        repeatState = false;
+        return function(bool) {
+          if (bool === void 0) {
+            return repeatState;
+          }
+          if (typeof bool === 'boolean') {
+            repeatState = bool;
+          }
+          return this;
+        };
+      })();
     }
 
     Playlist.prototype.songChange = function(callback) {
@@ -139,16 +151,6 @@
       resetSongs(this);
       this.songNumber = songNum;
       fireSongEvent(this);
-      return this;
-    };
-
-    Playlist.prototype.repeat = function(bool) {
-      if (bool === void 0) {
-        return this.repeatState;
-      }
-      if (typeof bool === 'boolean') {
-        this.repeatState = bool;
-      }
       return this;
     };
 
