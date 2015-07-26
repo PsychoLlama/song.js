@@ -128,10 +128,10 @@
         All the methods mentioned above can be <i>chained</i>. Check it
         out:
         
-<pre>new Playlist("60's Mashup")
-  .add(songs)
-  .repeat(true)
-  .skipTo(3)
+<pre><span class="token">new</span> Playlist(<span class="arg">"60's Mashup"</span>)
+  .add(<span class="arg">songs</span>)
+  .repeat(<span class="arg">true</span>)
+  .skipTo(<span class="arg">3</span>)
   .play()</pre>
   
       </p>
@@ -186,15 +186,15 @@
       <p>
         Just what it sounds like. For every song in the playlist,
         invoke the callback with that same song and it's index. Example:
-<pre>playlist.each(callback);
+<pre>playlist.each(<span class="arg">callback</span>);
 
-function callback(song, index) {
-  $( '&lt;li&gt;' )
-  .text( playlist.title(song) )
-  .append( '#playlist' )
-  .click( function() {
+<span class="token">function</span> callback(<span class="arg">song</span>, <span class="arg">index</span>) {
+  $( <span class="arg">'&lt;li&gt;'</span> )
+  .text( <span class="arg">playlist.title(song)</span> )
+  .append( <span class="arg">'#playlist'</span> )
+  .click( <span class="token">function</span>() {
   
-    playlist.skipTo(index);
+    playlist.skipTo(<span class='arg'>index</span>);
     
   });
 });</pre>
@@ -205,10 +205,6 @@ function callback(song, index) {
         Congrats! You've read every scrap of Song.js documentation. If
         you haven't already, give it a try and let me know what you
         think. I'd love to hear from you!
-      </p>
-      
-      <p>
-        Psssst! Hey kid! I'm looking for a web dev job...
       </p>
     </div>
   </body>
