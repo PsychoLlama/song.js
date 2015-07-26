@@ -17,36 +17,198 @@
     </header>
     
     <div class="doc green">
-      <h2>Creating a playlist...</h2>
-      <p>To begin, we need to create a playist object.
-        Here's how:</p>
-      <pre><span class='token'>var</span> playlistMgr = <span class="token">new</span> Song(<span class="arg">playlist</span>);</pre>
-      <p>We'll format your playlist in a moment.
-        for now, let's have an overview. <code>Song</code> takes
-        your playlist data and creates <code>&lt;audio&gt;</code>
-        tags, pushing them into a playlist property.</p>
-        <pre>playlistMgr.playlist
-<span class="token">&gt;</span> [ &lt;audio&gt; &lt;audio&gt; <span class="token">...</span> ]</pre>
+      <p>
+        When building an HTML5 music player, you'll want some way to manage
+        your songs.
+        This library is a newbie's interpretation to how it should be done.
+      </p>
+      
+      <h2>
+        To begin:
+      </h2>
+      <p>
+        To make a playlist, we create a new instance:
+        <code>var playlist = new Playlist('Awesome Songs')</code>.
+        Our new playlist object has a lot of useful tools built in. Let's
+        take a look...<br>
+      </p>
+      
+      <h3>
+        playlist.add()
+      </h3>
+      <p>
+        How much use is a playlist without
+        songs? Pass in either an <code>&lt;audio&gt;</code> node, an object
+        or a whole array of objects. <code>add()</code> is pretty flexible.
+<pre>{
+  title: "Yellow Submarine",
+  src: "path/to/submarine.mp3",
+  img: "path/to/albumCover.png"
+}</pre>
+        Song.js automatically converts your objects into working
+        <code>&lt;audio&gt;</code> elements, and pushes them to an array
+        used by the built-in in tools.
+      </p>
     </div>
     
     <div class="doc brown">
-      <h2>Formatting the playlist</h2>
+      
+      <h3>
+        playlist.play()/pause()
+        
+      </h3>
       <p>
-        The Song constructor takes in a list of songs as an object
-        array. Each object represents a song.
+        Now that you've got your playlist set up, kick it into gear
+        with the <code>play()</code> method. If the awesome is too
+        overwhelming, <code>pause()</code> has your back.
       </p>
-      <pre>[{
-  title: "<span class="arg">title string</span>",
-  src: "<span class="arg">URL string</span>",
-  img: "<span class="arg">URL string</span>"
-}, {
-  title: "<span class="arg">Second song</span>",
-  src: "<span class="arg">URL</span>",
-  img: "<span class="arg">URL</span>"
-}]</pre>
+      
+      <h3>
+          playlist.next()/previous()
+      </h3>
       <p>
-        A src property is required in each song object. All
-        other properties are optional.
+        <code>&lt;audio&gt;</code> elements allow for some
+        nightmarish behavior. If you're using sound effects, you might
+        want concurrency. But that's a horrible idea with music. Song.js
+        makes sure only one song is playing at a time, and it does that
+        with <code>next()</code> and <code>previous()</code>.<br>
+        Both methods change the song without actually playing it,
+        giving you finer control over your app.
+      </p>
+      
+      <h3>
+        playlist.repeat(boolean)
+      </h3>
+      <p>
+        After fiddling with <code>next</code> and <code>previous</code>,
+        you probably noticed that <code>undefined</code> returns
+        at your playlists' edges. You can break these borders by
+        turning on repeat: <code>repeat(true)</code>.
+        To see what it's set at, just ask <code>repeat()</code>.
+      </p>
+      
+      <h3>
+        playlist.shuffle()
+      </h3>
+      <p>
+        Get some variety with the <code>shuffle()</code> method.
+        Each song gets ordered randomly in the playlist after this
+        code is run.<br>
+        Warning: you may want to consider a few things first...
+        <ul>
+          <li>Initial state will be lost.</li>
+          <li>The current song will reset, and likely change
+          to another.</li>
+        </ul>
+        These issues should be solved in a future release.
+      </p>
+      
+      <h3>
+        playlist.skipTo(songNumber)
+      </h3>
+      <p>
+        <code>next</code> and <code>previous</code> barely touched
+        your incredible thirst for power. You want more, and you'll find
+        it with <code>skipTo</code>. Passing in the index of any
+        song in the playlist changes your current song to your
+        chosen one.
+      </p>
+      
+      <h3>
+        playlist.remove(songNumber)
+      </h3>
+      <p>
+        The power to destroy, now in your hands. Call <code>remove</code>
+        on a song index and the playlist will violently comply, even
+        cleaning up the falsy values left behind.
+      </p>
+      
+      <p>
+        <strong>Uber cool tip</strong><br>
+        All the methods mentioned above can be <i>chained</i>. Check it
+        out:
+        
+<pre>new Playlist("60's Mashup")
+  .add(songs)
+  .repeat(true)
+  .skipTo(3)
+  .play()</pre>
+  
+      </p>
+      
+      <h3>
+        playlist.title(song)
+      </h3>
+      <p>
+        Grab the title of a song. If it wasn't passed a song, it just
+        grabs the current one. If you didn't define a
+        title when you added the song, it will return
+        <code>undefined</code>.
+      </p>
+      
+      <h3>
+        playlist.album(song)
+      </h3>
+      <p>
+        Pretty much the same thing as <code>playlist.title()</code>,
+        although it returns an <code>&lt;img&gt;</code> tag complete
+        with the src you defined (you defined that, right?)
+      </p>
+      <p>
+        <strong>Warning:</strong><br>
+        The <code>album</code> and <code>title</code> methods may be
+        implemented differently in the future.
+      </p>
+      
+      <h3>
+        playlist.getSong(songNumber)
+      </h3>
+      <p>
+        Grabs the song at the songNumber/index passed in. It's forgiving
+        and will return the current song if you didn't give it an index.
+        This method is really useful for looping (more on this later).
+      </p>
+      
+      <h3>
+        playlist.songChange(callback)
+      </h3>
+      <p>
+        <code>next</code>, <code>previous</code>, <code>skipTo</code>
+        and others generate songChange events. Give songChange your
+        listener function, and every time it fires we'll call it for you.
+        You can register an unlimited number of listeners, and each is
+        passed the current <code>&lt;audio&gt;</code> node.
+      </p>
+      
+      <h3>
+        playlist.Each(callback)
+      </h3>
+      <p>
+        Just what it sounds like. For every song in the playlist,
+        invoke the callback with that same song and it's index. Example:
+<pre>playlist.each(callback);
+
+function callback(song, index) {
+  $( '&lt;li&gt;' )
+  .text( playlist.title(song) )
+  .append( '#playlist' )
+  .click( function() {
+  
+    playlist.skipTo(index);
+    
+  });
+});</pre>
+      </p>
+      
+      <p>
+        <strong>You made it</strong><br>
+        Congrats! You've read every scrap of Song.js documentation. If
+        you haven't already, give it a try and let me know what you
+        think. I'd love to hear from you!
+      </p>
+      
+      <p>
+        Psssst! Hey kid! I'm looking for a web dev job...
       </p>
     </div>
   </body>
