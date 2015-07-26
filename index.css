@@ -33,6 +33,20 @@ p:last-child {
 header {
   padding: 40px;
 }
+footer {
+  padding: 30px;
+  text-align: center;
+  background-color: #272822;
+  font-size: 90%;
+}
+footer,
+footer a,
+a:visited {
+  color: #F8F8F8;
+}
+a:hover {
+  color: white;
+}
 .doc {
   padding: 20px;
 }
