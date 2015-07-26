@@ -42,11 +42,13 @@
         How much use is a playlist without
         songs? Pass in either an <code>&lt;audio&gt;</code> node, an object
         or a whole array of objects. <code>add()</code> is pretty flexible.
+      </p>
 <pre>{
   title: "Yellow Submarine",
   src: "path/to/submarine.mp3",
   img: "path/to/albumCover.png"
 }</pre>
+      <p>
         Song.js automatically converts your objects into working
         <code>&lt;audio&gt;</code> elements, and pushes them to an array
         used by the built-in in tools.
@@ -96,12 +98,14 @@
         Get some variety with the <code>shuffle()</code> method.
         Each song gets ordered randomly in the playlist after this
         code is run.<br>
-        Warning: you may want to consider a few things first...
+        <strong>Warning:</strong> you may want to consider a few things first...
+        
         <ul>
           <li>Initial state will be lost.</li>
           <li>The current song will reset, and likely change
           to another.</li>
         </ul>
+        
         These issues should be solved in a future release.
       </p>
       
@@ -129,14 +133,13 @@
         <strong>Uber cool tip</strong><br>
         All the methods mentioned above can be <i>chained</i>. Check it
         out:
+      </p>
         
 <pre><span class="token">new</span> Playlist(<span class="arg">"60's Mashup"</span>)
   .add(<span class="arg">songs</span>)
   .repeat(<span class="arg">true</span>)
   .skipTo(<span class="arg">3</span>)
   .play()</pre>
-  
-      </p>
       
       <h3>
         playlist.title(song)
@@ -188,6 +191,7 @@
       <p>
         Just what it sounds like. For every song in the playlist,
         invoke the callback with that same song and it's index. Example:
+      </p>
 <pre>playlist.each(<span class="arg">callback</span>);
 
 <span class="token">function</span> callback(<span class="arg">song</span>, <span class="arg">index</span>) {
@@ -200,7 +204,6 @@
     
   });
 });</pre>
-      </p>
       
       <p>
         <strong>You made it</strong><br>
