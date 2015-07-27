@@ -2,6 +2,18 @@
 root = @
 
 # Generic methods
+getSongs = (url, playlist) ->
+	request = new XMLHttpRequest()
+	request.open 'get', url, false
+	request.onload = ->
+		songs = JSON.parse request.responseText
+		playlist.add songs
+	
+	request.send()
+	
+	return playlist
+	
+
 makeAudio = (song) ->
 	audio = new Audio()
 	if song.src then audio.src = song.src
@@ -12,24 +24,24 @@ makeAudio = (song) ->
 
 	return audio
 
-fireSongEvent = (instance) ->
+fireSongEvent = (playlist) ->
 	try
-		for callback in instance.callbacks
-			callback instance.getSong()
+		for callback in playlist.callbacks
+			callback playlist.getSong()
 
 clean = (array) ->
 	# Returns an array without any falsy values
 	value for value in array when value
 	
 
-resetSongs = (instance) ->
-	playlist = instance.songs
+resetSongs = (playlist) ->
+	playlist = playlist.songs
 	for song in playlist
 		try
 			song.pause()
 			song.currentTime = 0
 	
-	return instance
+	return playlist
 
 
 class Playlist
@@ -112,7 +124,7 @@ class Playlist
 		if (0 <= songNum < @songs.length) is false
 			return
 		return if songNum is undefined
-			
+		
 		resetSongs(@)
 		@songNumber = songNum
 		
@@ -145,7 +157,8 @@ class Playlist
 		else return undefined
 
 	add: (data) ->
-		return null if typeof data isnt 'object'
+		if typeof data is 'string'
+			return getSongs data, @
 		
 		if data.length > 0
 			# It's a playlist
@@ -154,11 +167,10 @@ class Playlist
 				@songs.push makeAudio song
 				
 		else if data.tagName is 'AUDIO'
-			# It's an <audio> tag
-			
 			@songs.push data
-		else
-			# User passed a single object
+		else if typeof data is 'object'
+			# data is a single object
+			
 			@songs.push makeAudio data
 		
 		fireSongEvent @
