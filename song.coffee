@@ -1,15 +1,18 @@
 'use strict'
 root = @
+songRequest = null
 
 # Generic methods
 getSongs = (url, playlist) ->
 	request = new XMLHttpRequest()
-	request.open 'get', url, false
-	request.onload = ->
+	request.open 'get', url, true
+	request.addEventListener 'load', ->
 		songs = JSON.parse request.responseText
 		playlist.add songs
+		songRequest = null
 	
 	request.send()
+	songRequest = request
 	
 	return playlist
 	
@@ -85,13 +88,16 @@ class Playlist
 		return @
 	
 	play: ->
-		song = @getSong()
-		song?.play()
-		return @
+		if songRequest isnt null
+			songRequest.addEventListener 'load', =>
+				@play()
+			return @
+		else
+			@getSong()?.play()
+			return @
 	
 	pause: ->
-		song = @getSong()
-		song?.pause()
+		@getSong()?.pause()
 		return @
 	
 	next: ->
