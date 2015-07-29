@@ -92,7 +92,7 @@ class Playlist
 		return @
 	
 	play: ->
-		if songRequest isnt nullfire
+		if songRequest isnt null
 			songRequest.addEventListener 'load', =>
 				@play()
 			return @

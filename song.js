@@ -117,7 +117,7 @@
 
     Playlist.prototype.play = function() {
       var _ref;
-      if (songRequest !== nullfire) {
+      if (songRequest !== null) {
         songRequest.addEventListener('load', (function(_this) {
           return function() {
             return _this.play();
