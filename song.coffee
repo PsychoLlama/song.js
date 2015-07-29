@@ -27,9 +27,9 @@ makeAudio = (song) ->
 
 	return audio
 
-fireSongEvent = (playlist) ->
+fireEvent = (playlist, callbacks) ->
 	try
-		for callback in playlist.callbacks
+		for callback in callbacks
 			callback playlist.getSong()
 
 clean = (array) ->
@@ -53,7 +53,8 @@ class Playlist
 		@songs = []
 		
 		@songNumber = 0
-		@callbacks = []
+		@songCallbacks = []
+		@playlistCallbacks = []
 		
 		@repeat = (->
 			# Hide access to repeatState
@@ -71,8 +72,11 @@ class Playlist
 	
 	
 	# Inherited methods
-	songChange: (callback) ->
-		@callbacks.push callback
+	onChange: (type, callback) ->
+		if type.toLowerCase() is 'song'
+			@songCallbacks.push callback
+		else if type.toLowerCase() is 'playlist'
+			@playlistCallbacks.push callback
 		
 		return @
 
@@ -83,12 +87,12 @@ class Playlist
 			(Math.floor Math.random() * 3) - 1
 	
 		resetSongs(@)
-		fireSongEvent @
+		fireEvent @, @playlistCallbacks
 	
 		return @
 	
 	play: ->
-		if songRequest isnt null
+		if songRequest isnt nullfire
 			songRequest.addEventListener 'load', =>
 				@play()
 			return @
@@ -134,7 +138,7 @@ class Playlist
 		resetSongs(@)
 		@songNumber = songNum
 		
-		fireSongEvent @
+		fireEvent @, @songCallbacks
 		
 		return @
 		
@@ -179,7 +183,7 @@ class Playlist
 			
 			@songs.push makeAudio data
 		
-		fireSongEvent @
+		fireEvent @, @playlistCallbacks
 		
 		return @
 	
@@ -188,7 +192,7 @@ class Playlist
 			
 			delete @songs[songNum]
 			@songs = clean(@songs)
-			fireSongEvent @
+			fireEvent @, @playlistCallbacks
 			
 			if @songNumber is songNum
 				@songNumber = 0
