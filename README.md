@@ -150,12 +150,21 @@ new Playlist("60's Mashup")
 </p>
 
 <h4>
-  <code>playlist.songChange(callback)</code>
+  <code>playlist.onChange(type, callback)</code>
 </h4>
 <p>
   <code>next</code>, <code>previous</code>, <code>skipTo</code>
-  and others generate songChange events. Give songChange your
-  listener function, and every time it fires we'll call it for you.
+  and others generate onChange events. Call onChange with the
+  type of change you want to listen for, such as
+  <code>playlist</code> or <code>song</code>, and we'll let
+  you know when that information changes. Just give us a
+  callback:
+<pre>playlist.onChange("song",
+  function(song) {
+    // Update song
+  });</pre>
+  Any time the current song is changed,
+  all of your callbacks for that event are invoked.
   You can register an unlimited number of listeners, and each is
   passed the current <code>&lt;audio&gt;</code> node.
 </p>
@@ -166,8 +175,7 @@ new Playlist("60's Mashup")
 <p>
   Just what it sounds like. For every song in the playlist,
   invoke the callback with that same song and it's index. Example:
-<pre>
-playlist.each(callback);
+<pre>playlist.each(callback);
 
 function callback(song, index) {
   $( '&lt;li&gt;' )
@@ -178,8 +186,7 @@ function callback(song, index) {
     playlist.skipTo(index);
     
   });
-});
-</pre>
+});</pre>
 </p>
 
 <p>
