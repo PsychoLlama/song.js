@@ -237,6 +237,19 @@
       return this;
     };
 
+    Playlist.prototype.after = function(callback) {
+      if (songRequest !== null) {
+        songRequest.addEventListener('load', (function(_this) {
+          return function() {
+            return callback(_this);
+          };
+        })(this));
+      } else {
+        callback(this);
+      }
+      return this;
+    };
+
     Playlist.prototype.remove = function(songNum) {
       if ((0 <= songNum && songNum < this.songs.length)) {
         delete this.songs[songNum];

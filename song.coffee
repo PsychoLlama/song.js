@@ -187,6 +187,14 @@ class Playlist
 		
 		return @
 	
+	after: (callback) ->
+		if songRequest isnt null
+			songRequest.addEventListener 'load', =>
+				callback(@)
+		else callback(@)
+		
+		return @
+	
 	remove: (songNum) ->
 		if 0 <= songNum < @songs.length
 			
