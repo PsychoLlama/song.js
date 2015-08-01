@@ -92,11 +92,7 @@ class Playlist
 		return @
 	
 	play: ->
-		if songRequest isnt null
-			songRequest.addEventListener 'load', =>
-				@play()
-			return @
-		else
+		@after =>
 			@getSong()?.play()
 			return @
 	
@@ -187,6 +183,9 @@ class Playlist
 		
 		return @
 	
+	# Only used internally:
+	# If you need to use "this" in an after callback,
+	# use a fat function arrow.
 	after: (callback) ->
 		if songRequest isnt null
 			songRequest.addEventListener 'load', =>

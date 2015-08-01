@@ -116,20 +116,15 @@
     };
 
     Playlist.prototype.play = function() {
-      var _ref;
-      if (songRequest !== null) {
-        songRequest.addEventListener('load', (function(_this) {
-          return function() {
-            return _this.play();
-          };
-        })(this));
-        return this;
-      } else {
-        if ((_ref = this.getSong()) != null) {
-          _ref.play();
-        }
-        return this;
-      }
+      return this.after((function(_this) {
+        return function() {
+          var _ref;
+          if ((_ref = _this.getSong()) != null) {
+            _ref.play();
+          }
+          return _this;
+        };
+      })(this));
     };
 
     Playlist.prototype.pause = function() {
