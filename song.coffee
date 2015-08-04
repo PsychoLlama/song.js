@@ -1,4 +1,9 @@
 'use strict'
+try
+	new Audio()
+catch
+	return @Playlist = undefined
+
 root = @
 songRequest = null
 
@@ -197,12 +202,14 @@ class Playlist
 	remove: (songNum) ->
 		if 0 <= songNum < @songs.length
 			
+			try @songs[songNum].pause()
 			delete @songs[songNum]
 			@songs = clean(@songs)
 			fireEvent @, @playlistCallbacks
 			
 			if @songNumber is songNum
 				@songNumber = 0
+				fireEvent @songs, @songCallbacks
 			else if @songNumber > songNum
 				@songNumber--
 			

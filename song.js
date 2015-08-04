@@ -3,6 +3,12 @@
   'use strict';
   var Playlist, clean, fireEvent, getSongs, makeAudio, resetSongs, root, songRequest;
 
+  try {
+    new Audio();
+  } catch (_error) {
+    return this.Playlist = void 0;
+  }
+
   root = this;
 
   songRequest = null;
@@ -247,11 +253,15 @@
 
     Playlist.prototype.remove = function(songNum) {
       if ((0 <= songNum && songNum < this.songs.length)) {
+        try {
+          this.songs[songNum].pause();
+        } catch (_error) {}
         delete this.songs[songNum];
         this.songs = clean(this.songs);
         fireEvent(this, this.playlistCallbacks);
         if (this.songNumber === songNum) {
           this.songNumber = 0;
+          fireEvent(this.songs, this.songCallbacks);
         } else if (this.songNumber > songNum) {
           this.songNumber--;
         }
