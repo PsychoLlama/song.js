@@ -77,15 +77,17 @@
     return _results;
   };
 
-  resetSongs = function(playlist) {
+  resetSongs = function(playlist, exception) {
     var song, _i, _len;
     playlist = playlist.songs;
     for (_i = 0, _len = playlist.length; _i < _len; _i++) {
       song = playlist[_i];
-      try {
-        song.pause();
-        song.currentTime = 0;
-      } catch (_error) {}
+      if (song !== exception) {
+        try {
+          song.pause();
+          song.currentTime = 0;
+        } catch (_error) {}
+      }
     }
     return playlist;
   };

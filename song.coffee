@@ -44,9 +44,9 @@ clean = (array) ->
 	# Returns an array without any falsy values
 	value for value in array when value
 
-resetSongs = (playlist) ->
+resetSongs = (playlist, exception) ->
 	playlist = playlist.songs
-	for song in playlist
+	for song in playlist when song isnt exception
 		try
 			song.pause()
 			song.currentTime = 0
