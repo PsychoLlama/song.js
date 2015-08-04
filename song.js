@@ -281,6 +281,16 @@
       return this;
     };
 
+    Playlist.prototype.clear = function() {
+      return this.after((function(_this) {
+        return function() {
+          return _this.each(function() {
+            return _this.remove(0);
+          });
+        };
+      })(this));
+    };
+
     return Playlist;
 
   })();

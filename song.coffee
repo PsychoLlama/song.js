@@ -221,5 +221,10 @@ class Playlist
 				callback(song, _i)
 		
 		return @
-		
+	
+	clear: ->
+		@after =>
+			@each =>
+				@remove 0
+
 root.Playlist = Playlist
