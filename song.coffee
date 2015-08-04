@@ -60,8 +60,9 @@ class Playlist
 		@songs = []
 		
 		@songNumber = 0
-		@songCallbacks = []
-		@playlistCallbacks = []
+		@event =
+			song: []
+			playlist: []
 		
 		@repeat = (->
 			# Hide access to repeatState
@@ -81,9 +82,9 @@ class Playlist
 	# Inherited methods
 	onChange: (type, callback) ->
 		if type.toLowerCase() is 'song'
-			@songCallbacks.push callback
+			@event.song.push callback
 		else if type.toLowerCase() is 'playlist'
-			@playlistCallbacks.push callback
+			@event.playlist.push callback
 		
 		return @
 
@@ -94,7 +95,7 @@ class Playlist
 			(Math.floor Math.random() * 3) - 1
 	
 		resetSongs(@)
-		fireEvent @, @playlistCallbacks
+		fireEvent @, @event.playlist
 	
 		return @
 	
@@ -141,7 +142,7 @@ class Playlist
 		resetSongs(@)
 		@songNumber = songNum
 		
-		fireEvent @, @songCallbacks
+		fireEvent @, @event.song
 		
 		return @
 		
@@ -181,7 +182,7 @@ class Playlist
 		else if typeof data is 'object'
 			@songs.push makeAudio data
 		
-		fireEvent @, @playlistCallbacks
+		fireEvent @, @event.playlist
 		
 		return @
 	
@@ -191,11 +192,11 @@ class Playlist
 			try @songs[songNum].pause()
 			delete @songs[songNum]
 			@songs = clean(@songs)
-			fireEvent @, @playlistCallbacks
+			fireEvent @, @event.playlist
 			
 			if @songNumber is songNum
 				@songNumber = 0
-				fireEvent @, @songCallbacks
+				fireEvent @, @event.song
 			else if @songNumber > songNum
 				@songNumber--
 			

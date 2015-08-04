@@ -95,8 +95,10 @@
       this.name = name;
       this.songs = [];
       this.songNumber = 0;
-      this.songCallbacks = [];
-      this.playlistCallbacks = [];
+      this.event = {
+        song: [],
+        playlist: []
+      };
       this.repeat = (function() {
         var repeatState;
         repeatState = false;
@@ -114,9 +116,9 @@
 
     Playlist.prototype.onChange = function(type, callback) {
       if (type.toLowerCase() === 'song') {
-        this.songCallbacks.push(callback);
+        this.event.song.push(callback);
       } else if (type.toLowerCase() === 'playlist') {
-        this.playlistCallbacks.push(callback);
+        this.event.playlist.push(callback);
       }
       return this;
     };
@@ -127,7 +129,7 @@
         return (Math.floor(Math.random() * 3)) - 1;
       });
       resetSongs(this);
-      fireEvent(this, this.playlistCallbacks);
+      fireEvent(this, this.event.playlist);
       return this;
     };
 
@@ -189,7 +191,7 @@
       }
       resetSongs(this);
       this.songNumber = songNum;
-      fireEvent(this, this.songCallbacks);
+      fireEvent(this, this.event.song);
       return this;
     };
 
@@ -240,7 +242,7 @@
       } else if (typeof data === 'object') {
         this.songs.push(makeAudio(data));
       }
-      fireEvent(this, this.playlistCallbacks);
+      fireEvent(this, this.event.playlist);
       return this;
     };
 
@@ -251,10 +253,10 @@
         } catch (_error) {}
         delete this.songs[songNum];
         this.songs = clean(this.songs);
-        fireEvent(this, this.playlistCallbacks);
+        fireEvent(this, this.event.playlist);
         if (this.songNumber === songNum) {
           this.songNumber = 0;
-          fireEvent(this, this.songCallbacks);
+          fireEvent(this, this.event.song);
         } else if (this.songNumber > songNum) {
           this.songNumber--;
         }
