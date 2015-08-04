@@ -20,7 +20,10 @@ getSongs = (url, playlist) ->
 	songRequest = request
 	
 	return playlist
-	
+
+dismantle = (array, playlist) ->
+	for object in array
+		playlist.add object
 
 makeAudio = (song) ->
 	audio = new Audio()
@@ -172,30 +175,14 @@ class Playlist
 			return getSongs data, @
 		
 		if data.length > 0
-			# It's a playlist
-			
-			for song in data
-				@songs.push makeAudio song
+			dismantle data, @
 				
 		else if data.tagName is 'AUDIO'
 			@songs.push data
 		else if typeof data is 'object'
-			# data is a single object
-			
 			@songs.push makeAudio data
 		
 		fireEvent @, @playlistCallbacks
-		
-		return @
-	
-	# Only used internally:
-	# If you need to use "this" in an after callback,
-	# use a fat function arrow.
-	after: (callback) ->
-		if songRequest isnt null
-			songRequest.addEventListener 'load', =>
-				callback(@)
-		else callback(@)
 		
 		return @
 	
@@ -214,6 +201,17 @@ class Playlist
 				@songNumber--
 			
 			return @
+	
+	# Only used internally:
+	# If you need to use "this" in an after callback,
+	# use a fat function arrow.
+	after: (callback) ->
+		if songRequest isnt null
+			songRequest.addEventListener 'load', =>
+				callback(@)
+		else callback(@)
+		
+		return @
 	
 	each: (callback) ->
 		try
