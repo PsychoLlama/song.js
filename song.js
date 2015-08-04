@@ -254,7 +254,7 @@
         fireEvent(this, this.playlistCallbacks);
         if (this.songNumber === songNum) {
           this.songNumber = 0;
-          fireEvent(this.songs, this.songCallbacks);
+          fireEvent(this, this.songCallbacks);
         } else if (this.songNumber > songNum) {
           this.songNumber--;
         }

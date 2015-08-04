@@ -43,7 +43,6 @@ fireEvent = (playlist, callbacks) ->
 clean = (array) ->
 	# Returns an array without any falsy values
 	value for value in array when value
-	
 
 resetSongs = (playlist) ->
 	playlist = playlist.songs
@@ -196,7 +195,7 @@ class Playlist
 			
 			if @songNumber is songNum
 				@songNumber = 0
-				fireEvent @songs, @songCallbacks
+				fireEvent @, @songCallbacks
 			else if @songNumber > songNum
 				@songNumber--
 			
