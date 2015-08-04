@@ -5,7 +5,6 @@ catch
 	return @Playlist = undefined
 
 root = @
-songRequest = null
 
 # Generic methods
 getSongs = (url, playlist) ->
@@ -14,10 +13,10 @@ getSongs = (url, playlist) ->
 	request.addEventListener 'load', ->
 		songs = JSON.parse request.responseText
 		playlist.add songs
-		songRequest = null
+		playlist.songRequest = null
 	
 	request.send()
-	songRequest = request
+	playlist.songRequest = request
 	
 	return playlist
 
@@ -57,6 +56,7 @@ resetSongs = (playlist, exception) ->
 class Playlist
 	constructor: (@name) ->
 		
+		@songRequest = null
 		@songs = []
 		
 		@songNumber = 0
@@ -206,8 +206,8 @@ class Playlist
 	# If you need to use "this" in an after callback,
 	# use a fat function arrow.
 	after: (callback) ->
-		if songRequest isnt null
-			songRequest.addEventListener 'load', =>
+		if @songRequest isnt null
+			@songRequest.addEventListener 'load', =>
 				callback(@)
 		else callback(@)
 		
