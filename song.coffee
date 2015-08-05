@@ -20,9 +20,11 @@ netRequest = (url) ->
 	
 	return @
 
-dismantle = (array, playlist) ->
+dismantle = (array) ->
 	for object in array
-		playlist.add object
+		@add object
+	
+	return @
 
 makeAudio = (song) ->
 	audio = new Audio()
@@ -175,8 +177,7 @@ class Playlist
 			when String
 				return netRequest.call @, data
 			when Array
-				dismantle data, @
-				return @
+				return dismantle.call @, data
 			when Object
 				@songs.push makeAudio data
 				return @

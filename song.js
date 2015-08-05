@@ -28,14 +28,13 @@
     return this;
   };
 
-  dismantle = function(array, playlist) {
-    var object, _i, _len, _results;
-    _results = [];
+  dismantle = function(array) {
+    var object, _i, _len;
     for (_i = 0, _len = array.length; _i < _len; _i++) {
       object = array[_i];
-      _results.push(playlist.add(object));
+      this.add(object);
     }
-    return _results;
+    return this;
   };
 
   makeAudio = function(song) {
@@ -239,8 +238,7 @@
         case String:
           return netRequest.call(this, data);
         case Array:
-          dismantle(data, this);
-          return this;
+          return dismantle.call(this, data);
         case Object:
           this.songs.push(makeAudio(data));
           return this;
