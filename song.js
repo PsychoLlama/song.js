@@ -233,16 +233,20 @@
     };
 
     Playlist.prototype.add = function(data) {
-      if (typeof data === 'string') {
-        return getSongs(data, this);
+      switch (data.constructor) {
+        case String:
+          return getSongs(data, this);
+        case Array:
+          dismantle(data, this);
+          return this;
+        case Object:
+          this.songs.push(makeAudio(data));
+          return this;
       }
-      if (data.length > 0) {
-        dismantle(data, this);
-      } else if (data.tagName === 'AUDIO') {
-        this.songs.push(data);
-      } else if (typeof data === 'object') {
-        this.songs.push(makeAudio(data));
+      if (data.tagName !== 'AUDIO') {
+        return;
       }
+      this.songs.push(data);
       fireEvent(this, this.event.playlist);
       return this;
     };

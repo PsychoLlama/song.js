@@ -171,17 +171,19 @@ class Playlist
 		else return undefined
 
 	add: (data) ->
-		if typeof data is 'string'
-			return getSongs data, @
+		switch data.constructor
+			when String
+				return getSongs data, @
+			when Array
+				dismantle data, @
+				return @
+			when Object
+				@songs.push makeAudio data
+				return @
 		
-		if data.length > 0
-			dismantle data, @
-				
-		else if data.tagName is 'AUDIO'
-			@songs.push data
-		else if typeof data is 'object'
-			@songs.push makeAudio data
+		return if data.tagName isnt 'AUDIO'
 		
+		@songs.push data
 		fireEvent @, @event.playlist
 		
 		return @
