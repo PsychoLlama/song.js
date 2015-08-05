@@ -7,18 +7,18 @@ catch
 root = @
 
 # Generic methods
-getSongs = (url, playlist) ->
+netRequest = (url) ->
 	request = new XMLHttpRequest()
 	request.open 'get', url, true
-	request.addEventListener 'load', ->
+	request.addEventListener 'load', =>
 		songs = JSON.parse request.responseText
-		playlist.add songs
-		playlist.songRequest = null
+		@add songs
+		@songRequest = null
 	
 	request.send()
-	playlist.songRequest = request
+	@songRequest = request
 	
-	return playlist
+	return @
 
 dismantle = (array, playlist) ->
 	for object in array
@@ -173,7 +173,7 @@ class Playlist
 	add: (data) ->
 		switch data.constructor
 			when String
-				return getSongs data, @
+				return netRequest.call @, data
 			when Array
 				dismantle data, @
 				return @
