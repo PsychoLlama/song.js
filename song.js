@@ -38,7 +38,7 @@
     return this;
   };
 
-  Song = function(song, playlist) {
+  Song = function(song) {
     var audio;
     audio = new Audio();
     if (song.src) {
@@ -55,19 +55,19 @@
 
   fireEvent = function(type, arg) {
     var callback, _i, _len, _ref, _results;
-    try {
-      _ref = this.event[type];
-      _results = [];
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        callback = _ref[_i];
+    _ref = this.event[type];
+    _results = [];
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      callback = _ref[_i];
+      try {
         if (arg === null) {
           _results.push(callback(this));
         } else {
           _results.push(callback(arg));
         }
-      }
-      return _results;
-    } catch (_error) {}
+      } catch (_error) {}
+    }
+    return _results;
   };
 
   clean = function(array) {
@@ -301,13 +301,13 @@
 
     Playlist.prototype.each = function(callback) {
       var song, _i, _len, _ref;
-      try {
-        _ref = this.songs;
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          song = _ref[_i];
+      _ref = this.songs;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        song = _ref[_i];
+        try {
           callback(song, _i);
-        }
-      } catch (_error) {}
+        } catch (_error) {}
+      }
       return this;
     };
 

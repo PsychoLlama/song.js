@@ -26,7 +26,7 @@ dismantle = (array) ->
 	
 	return @
 
-Song = (song, playlist) ->
+Song = (song) ->
 	audio = new Audio()
 	if song.src then audio.src = song.src
 	if song.title
@@ -37,8 +37,8 @@ Song = (song, playlist) ->
 	return audio
 
 fireEvent = (type, arg) ->
-	try
-		for callback in @event[type]
+	for callback in @event[type]
+		try
 			if arg is null
 				callback @
 			else callback arg
@@ -214,7 +214,7 @@ class Playlist
 	
 	# Only used internally:
 	# If you need to use "this" in an after callback,
-	# use a fat function arrow.
+	# use a fat arrow function.
 	after: (callback) ->
 		if @songRequest isnt null
 			@songRequest.addEventListener 'load', =>
@@ -224,15 +224,11 @@ class Playlist
 		return @
 	
 	each: (callback) ->
-		try
-			for song in @songs
-				callback(song, _i)
+		for song in @songs
+			try callback(song, _i)
 		
 		return @
 	
-	clear: ->
-		@after =>
-			@each =>
-				@remove 0
+	clear: -> @after => @each => @remove 0
 
 root.Playlist = Playlist
