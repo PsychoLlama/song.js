@@ -65,7 +65,7 @@ class Playlist
 		@event =
 			song: []
 			playlist: []
-			paused: []
+			playing: []
 		
 		@repeat = (->
 			# Hide access to repeatState
@@ -185,10 +185,12 @@ class Playlist
 		return if data.tagName isnt 'AUDIO'
 		
 		@songs.push data
-		fireEvent @, @event.playlist
 		
-		data.addEventListener 'playing', ->
-			console.log @
+		fireEvent @, @event.playlist
+		data.addEventListener 'playing', =>
+			fireEvent @, @event.playing
+		data.addEventListener 'pause', =>
+			fireEvent @, @event.playing
 		
 		return @
 	

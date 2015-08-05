@@ -102,7 +102,7 @@
       this.event = {
         song: [],
         playlist: [],
-        paused: []
+        playing: []
       };
       this.repeat = (function() {
         var repeatState;
@@ -250,9 +250,16 @@
       }
       this.songs.push(data);
       fireEvent(this, this.event.playlist);
-      data.addEventListener('playing', function() {
-        return console.log(this);
-      });
+      data.addEventListener('playing', (function(_this) {
+        return function() {
+          return fireEvent(_this, _this.event.playing);
+        };
+      })(this));
+      data.addEventListener('pause', (function(_this) {
+        return function() {
+          return fireEvent(_this, _this.event.playing);
+        };
+      })(this));
       return this;
     };
 
