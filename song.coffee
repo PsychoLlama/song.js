@@ -26,14 +26,14 @@ dismantle = (array) ->
 	
 	return @
 
-makeAudio = (song) ->
+Song = (song, playlist) ->
 	audio = new Audio()
 	if song.src then audio.src = song.src
 	if song.title
 		audio.setAttribute 'data-title', song.title
 	if song.img
 		audio.setAttribute 'data-img', song.img
-
+	
 	return audio
 
 fireEvent = (playlist, callbacks) ->
@@ -179,8 +179,7 @@ class Playlist
 			when Array
 				return dismantle.call @, data
 			when Object
-				@songs.push makeAudio data
-				return @
+				return @add Song data
 		
 		return if data.tagName isnt 'AUDIO'
 		
