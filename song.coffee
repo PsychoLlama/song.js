@@ -65,6 +65,7 @@ class Playlist
 		@event =
 			song: []
 			playlist: []
+			paused: []
 		
 		@repeat = (->
 			# Hide access to repeatState
@@ -82,11 +83,11 @@ class Playlist
 	
 	
 	# Inherited methods
-	onChange: (type, callback) ->
-		if type.toLowerCase() is 'song'
-			@event.song.push callback
-		else if type.toLowerCase() is 'playlist'
-			@event.playlist.push callback
+	onChange: (type, callback) =>
+		type = type.toLowerCase()
+		
+		return null if type of @event is false
+		@event[type].push callback
 		
 		return @
 
@@ -185,6 +186,9 @@ class Playlist
 		
 		@songs.push data
 		fireEvent @, @event.playlist
+		
+		data.addEventListener 'playing', ->
+			console.log @
 		
 		return @
 	
