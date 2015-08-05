@@ -36,10 +36,12 @@ Song = (song, playlist) ->
 	
 	return audio
 
-fireEvent = (playlist, callbacks) ->
+fireEvent = (type, arg) ->
 	try
-		for callback in callbacks
-			callback playlist.getSong()
+		for callback in @event[type]
+			if arg is null
+				callback @
+			else callback arg
 
 clean = (array) ->
 	# Returns an array without any falsy values
@@ -98,7 +100,7 @@ class Playlist
 			(Math.floor Math.random() * 3) - 1
 	
 		resetSongs(@)
-		fireEvent @, @event.playlist
+		fireEvent.call @, 'playlist'
 	
 		return @
 	
@@ -145,7 +147,7 @@ class Playlist
 		resetSongs(@)
 		@songNumber = songNum
 		
-		fireEvent @, @event.song
+		fireEvent.call @, 'song'
 		
 		return @
 		
@@ -186,11 +188,11 @@ class Playlist
 		
 		@songs.push data
 		
-		fireEvent @, @event.playlist
+		fireEvent.call @, 'playlist'
 		data.addEventListener 'playing', =>
-			fireEvent @, @event.playing
+			fireEvent.call @, 'playing', true
 		data.addEventListener 'pause', =>
-			fireEvent @, @event.playing
+			fireEvent.call @, 'playing', false
 		
 		return @
 	
@@ -200,11 +202,11 @@ class Playlist
 			try @songs[songNum].pause()
 			delete @songs[songNum]
 			@songs = clean(@songs)
-			fireEvent @, @event.playlist
+			fireEvent.call @, 'playlist'
 			
 			if @songNumber is songNum
 				@songNumber = 0
-				fireEvent @, @event.song
+				fireEvent.call @, 'song'
 			else if @songNumber > songNum
 				@songNumber--
 			

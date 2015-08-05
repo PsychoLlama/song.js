@@ -53,13 +53,18 @@
     return audio;
   };
 
-  fireEvent = function(playlist, callbacks) {
-    var callback, _i, _len, _results;
+  fireEvent = function(type, arg) {
+    var callback, _i, _len, _ref, _results;
     try {
+      _ref = this.event[type];
       _results = [];
-      for (_i = 0, _len = callbacks.length; _i < _len; _i++) {
-        callback = callbacks[_i];
-        _results.push(callback(playlist.getSong()));
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        callback = _ref[_i];
+        if (arg === null) {
+          _results.push(callback(this));
+        } else {
+          _results.push(callback(arg));
+        }
       }
       return _results;
     } catch (_error) {}
@@ -134,7 +139,7 @@
         return (Math.floor(Math.random() * 3)) - 1;
       });
       resetSongs(this);
-      fireEvent(this, this.event.playlist);
+      fireEvent.call(this, 'playlist');
       return this;
     };
 
@@ -196,7 +201,7 @@
       }
       resetSongs(this);
       this.songNumber = songNum;
-      fireEvent(this, this.event.song);
+      fireEvent.call(this, 'song');
       return this;
     };
 
@@ -249,15 +254,15 @@
         return;
       }
       this.songs.push(data);
-      fireEvent(this, this.event.playlist);
+      fireEvent.call(this, 'playlist');
       data.addEventListener('playing', (function(_this) {
         return function() {
-          return fireEvent(_this, _this.event.playing);
+          return fireEvent.call(_this, 'playing', true);
         };
       })(this));
       data.addEventListener('pause', (function(_this) {
         return function() {
-          return fireEvent(_this, _this.event.playing);
+          return fireEvent.call(_this, 'playing', false);
         };
       })(this));
       return this;
@@ -270,10 +275,10 @@
         } catch (_error) {}
         delete this.songs[songNum];
         this.songs = clean(this.songs);
-        fireEvent(this, this.event.playlist);
+        fireEvent.call(this, 'playlist');
         if (this.songNumber === songNum) {
           this.songNumber = 0;
-          fireEvent(this, this.event.song);
+          fireEvent.call(this, 'song');
         } else if (this.songNumber > songNum) {
           this.songNumber--;
         }
