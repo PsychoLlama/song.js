@@ -33,6 +33,11 @@ Song = (song) ->
 		audio.setAttribute 'data-title', song.title
 	if song.img
 		audio.setAttribute 'data-img', song.img
+		
+	audio.addEventListener 'playing', =>
+		fireEvent.call @, 'playing', true
+	audio.addEventListener 'pause', =>
+		fireEvent.call @, 'playing', false
 	
 	return audio
 
@@ -182,17 +187,12 @@ class Playlist
 			when Array
 				return dismantle.call @, data
 			when Object
-				return @add Song data
+				return @add Song.call @, data
 		
 		return if data.tagName isnt 'AUDIO'
 		
 		@songs.push data
-		
 		fireEvent.call @, 'playlist'
-		data.addEventListener 'playing', =>
-			fireEvent.call @, 'playing', true
-		data.addEventListener 'pause', =>
-			fireEvent.call @, 'playing', false
 		
 		return @
 	

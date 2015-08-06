@@ -50,6 +50,16 @@
     if (song.img) {
       audio.setAttribute('data-img', song.img);
     }
+    audio.addEventListener('playing', (function(_this) {
+      return function() {
+        return fireEvent.call(_this, 'playing', true);
+      };
+    })(this));
+    audio.addEventListener('pause', (function(_this) {
+      return function() {
+        return fireEvent.call(_this, 'playing', false);
+      };
+    })(this));
     return audio;
   };
 
@@ -248,23 +258,13 @@
         case Array:
           return dismantle.call(this, data);
         case Object:
-          return this.add(Song(data));
+          return this.add(Song.call(this, data));
       }
       if (data.tagName !== 'AUDIO') {
         return;
       }
       this.songs.push(data);
       fireEvent.call(this, 'playlist');
-      data.addEventListener('playing', (function(_this) {
-        return function() {
-          return fireEvent.call(_this, 'playing', true);
-        };
-      })(this));
-      data.addEventListener('pause', (function(_this) {
-        return function() {
-          return fireEvent.call(_this, 'playing', false);
-        };
-      })(this));
       return this;
     };
 
