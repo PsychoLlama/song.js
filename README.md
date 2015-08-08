@@ -7,6 +7,19 @@
   This library is a newbie's interpretation to how it should be done.
 </p>
 
+<small style='font-size: 70%;'>
+  Song.js is a non-concurrent &lt;audio&gt; abstraction layer
+  designed to remove complexity from building playlists,
+  such as song tracking, data
+  association, high-level event generation, song navigation, and
+  AJAX imports.<br>
+  <br>
+  Song.js meant for music, podcasts and similar media,
+  <em>not</em> sound effects. If that's what you're looking for,
+  check out
+  <a href="//github.com/goldfire/howler.js">Howler.js</a>.
+</small>
+
 <h4>To begin:</h4>
 <p>
   To make a playlist, we create a new instance:
