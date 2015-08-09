@@ -144,11 +144,16 @@
     };
 
     Playlist.prototype.shuffle = function() {
+      var lastSong;
+      lastSong = this.getSong();
       this.songNumber = 0;
+      resetSongs(this);
       this.songs.sort(function() {
         return (Math.floor(Math.random() * 3)) - 1;
       });
-      resetSongs(this);
+      if (lastSong !== this.getSong()) {
+        fireEvent.call(this, 'song');
+      }
       fireEvent.call(this, 'playlist');
       return this;
     };

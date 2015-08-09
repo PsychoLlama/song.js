@@ -99,14 +99,18 @@ class Playlist
 		return @
 
 	shuffle: ->
+		lastSong = @getSong()
+		
 		@songNumber = 0
+		resetSongs(@)
 	
 		@songs.sort ->
 			(Math.floor Math.random() * 3) - 1
-	
-		resetSongs(@)
+		
+		if lastSong isnt @getSong()
+			fireEvent.call @, 'song'
 		fireEvent.call @, 'playlist'
-	
+		
 		return @
 	
 	play: ->
