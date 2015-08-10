@@ -35,18 +35,11 @@ Song = (song) ->
 		audio.setAttribute 'data-img', song.img
 		
 	audio.addEventListener 'playing', =>
-		fireEvent.call @, 'playing', true
+		@event.fire 'playing', true
 	audio.addEventListener 'pause', =>
-		fireEvent.call @, 'playing', false
+		@event.fire 'playing', false
 	
 	return audio
-
-fireEvent = (type, arg) ->
-	for callback in @event[type]
-		try
-			if arg is null
-				callback @
-			else callback arg
 
 clean = (array) ->
 	# Returns an array without any falsy values
@@ -70,6 +63,15 @@ class Playlist
 		
 		@songNumber = 0
 		@event =
+			fire: (type, arg) ->
+				return if @hasOwnProperty type is false
+				return if @[type].constructor isnt Array
+				
+				for callback in @[type]
+					try
+						if arg is undefined
+							callback @
+						else callback arg
 			song: []
 			playlist: []
 			playing: []
@@ -108,8 +110,8 @@ class Playlist
 			(Math.floor Math.random() * 3) - 1
 		
 		if lastSong isnt @getSong()
-			fireEvent.call @, 'song'
-		fireEvent.call @, 'playlist'
+			@event.fire 'song', @
+		@event.fire 'playlist', @
 		
 		return @
 	
@@ -156,7 +158,7 @@ class Playlist
 		resetSongs(@)
 		@songNumber = songNum
 		
-		fireEvent.call @, 'song'
+		@event.fire 'song', @
 		
 		return @
 		
@@ -196,7 +198,7 @@ class Playlist
 		return if data.tagName isnt 'AUDIO'
 		
 		@songs.push data
-		fireEvent.call @, 'playlist'
+		@event.fire 'playlist', @
 		
 		return @
 	
@@ -206,11 +208,11 @@ class Playlist
 			try @songs[songNum].pause()
 			delete @songs[songNum]
 			@songs = clean(@songs)
-			fireEvent.call @, 'playlist'
+			@event.fire 'playlist', @
 			
 			if @songNumber is songNum
 				@songNumber = 0
-				fireEvent.call @, 'song'
+				@event.fire 'song', @
 			else if @songNumber > songNum
 				@songNumber--
 			
