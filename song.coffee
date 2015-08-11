@@ -6,17 +6,24 @@ catch
 
 root = @
 
+fetched = {}
+
 # Generic methods
-netRequest = (url) ->
-	request = new XMLHttpRequest()
-	request.open 'get', url, true
-	request.addEventListener 'load', =>
-		songs = JSON.parse request.responseText
-		@add songs
-		@songRequest = null
-	
-	request.send()
-	@songRequest = request
+fetch = (url) ->
+	if fetched[url]
+		@add fetched[url]
+	else
+		request = new XMLHttpRequest()
+		request.open 'get', url, true
+		request.addEventListener 'load', =>
+			songs = JSON.parse request.responseText
+			fetched[url] = songs
+			
+			@add songs
+			@songRequest = null
+		
+		request.send()
+		@songRequest = request
 	
 	return @
 
@@ -189,7 +196,7 @@ class Playlist
 	add: (data) ->
 		switch data.constructor
 			when String
-				return netRequest.call @, data
+				return fetch.call @, data
 			when Array
 				return dismantle.call @, data
 			when Object
