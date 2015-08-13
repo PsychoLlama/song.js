@@ -1,0 +1,3 @@
+[submodule "CallbackJS"]
+	path = CallbackJS
+	url = https://github.com/PsychoLlama/CallbackJS.git
