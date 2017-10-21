@@ -1,4 +1,10 @@
-# song.js
+# [UNMAINTAINED] song.js
+
+## Maintenance Notice
+I don't maintain or condone this project. It only exists here because it's the first software project I ever wrote.
+
+And it's horrible.
+
 <strong>Playlist Management Library</strong>
 
 <p>
